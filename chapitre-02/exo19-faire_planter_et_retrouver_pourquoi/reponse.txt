@@ -1,0 +1,18 @@
+Le nom du programme est confirmé : cm.enspy.masalle, dans le champ Cmdline et
+dans la ligne pid. Le signal est SIGSEGV, code SEGV_MAPERR, à l'adresse fautive
+0x0. Le débogueur ajoute lui-même la ligne "Cause: null pointer dereference".
+C'est la lecture d'un pointeur nul, pas une autre sorte d'erreur mémoire.
+
+La pile d'appel porte des noms de fonctions, pas seulement des adresses :
+LireHauteurPlafond(), appelée depuis android_main, elle-même appelée depuis
+android_app_entry. Le binaire a donc gardé ses symboles. L'application avait
+démarré et exécuté du code avant de planter, ce n'est pas un échec de
+lancement de l'activité.
+
+La trace ne dit pas pourquoi le pointeur est nul. Elle montre qu'il l'est,
+pas qui l'a laissé ainsi ni depuis quand. Elle ne donne aucun fichier source
+ni numéro de ligne : les symboles donnent le nom des fonctions, pas la
+correspondance avec le code, qui demande des informations de débogage que
+l'apk Debug n'embarque pas ici. Elle ne dit rien non plus de ce que
+l'utilisateur voyait à l'écran, puisque l'application s'est fermée avant
+qu'aucune fenêtre ne s'affiche.

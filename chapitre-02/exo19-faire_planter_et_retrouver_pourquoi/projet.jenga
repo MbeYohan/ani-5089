@@ -1,0 +1,34 @@
+from Jenga import *
+from Jenga.GlobalToolchains import *
+
+with workspace("MaSalleWks", location="."):
+    configurations(["Debug", "Release"])
+    targetarchs([TargetArch.ARM64])
+
+    ApplyAndroidSdkNdkJdkDefaults()
+    RegisterJengaGlobalToolchains()
+
+    with project("MaSalle"):
+        windowedapp()
+        language("C++")
+        cppdialect("C++17")
+        location(".")
+        files(["plantage.cpp"])
+        objdir("Build/Obj/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}")
+        targetdir("Build/Bin/%{cfg.buildcfg}-%{cfg.system}/%{prj.name}")
+
+        with filter("system:Windows"):
+            links(["user32", "gdi32"])
+
+        with filter("system:Android"):
+            usetoolchain("android-ndk")
+            androidapplicationid("cm.enspy.masalle")
+            androidminsdk(24)
+            androidtargetsdk(34)
+            androidcompilesdk(34)
+            androidabis(["arm64-v8a"])
+            androidnativeactivity(True)
+
+        with filter("config:Debug"):
+            symbols(True)
+            optimize("Off")
