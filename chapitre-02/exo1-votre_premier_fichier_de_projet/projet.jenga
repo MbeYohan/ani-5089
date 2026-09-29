@@ -6,7 +6,7 @@
 
 from Jenga import *
 
-with workspace("WorkspaceAni5089"):
+with workspace("project"):
     configurations(['Debug', 'Release'])
     targetoses([TargetOS.WINDOWS, TargetOS.LINUX, TargetOS.MACOS])
     targetarchs([TargetArch.X86_64])
