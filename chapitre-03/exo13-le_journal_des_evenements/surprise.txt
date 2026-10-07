@@ -1,0 +1,8 @@
+Focus m'a surpris. Il a 8 lignes dans le journal, regroupées en 4 instants (2,768 s, 4,054 s, 14,221 s et 15,341 s),
+et chaque instant porte deux lignes à moins de 3 ms l'une de l'autre. Je m'attendais à une seule ligne par changement 
+de focus et j'en trouve deux. 
+Je n'ai pas cherché la cause : je sais seulement que mon journal compte le gain et la perte de focus sous le même nom.
+ 
+Souris m'a surpris par son poids : 682 lignes sur 721, soit 94,6 % de tout le journal, 
+avec une ligne toutes les 7,5 ms environ tant que la main bouge. 
+À l'inverse, Redimensionnement n'a que 2 lignes, à 10,680 s et à 11,918 s : un événement par geste, pas un flot comme la souris.

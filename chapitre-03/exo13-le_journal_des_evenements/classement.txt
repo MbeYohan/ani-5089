@@ -1,0 +1,6 @@
+Souris : 682
+Pointeur : 13
+Molette : 10
+Focus : 8
+Touche : 6
+Redimensionnement : 2

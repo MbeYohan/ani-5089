@@ -1,0 +1,19 @@
+Quand j'arrête la souris, le moteur continue d'afficher la dernière valeur. 
+Dans avant.txt, -1 0 revient aux images 7 à 10. À l'image 7 ma main bougeait 
+encore (apres.txt donne -25 -20), mais aux images 8, 9 et 10 elle ne bougeait 
+plus, et apres.txt donne bien 0 0. Le moteur écrit dans rawDeltaX et rawDeltaY 
+à chaque événement brut et ne les remet jamais à zéro : une image sans événement 
+relit la valeur périmée, et la tête continuerait de tourner main posée. 
+Mon accumulateur est remis à zéro à chaque image, donc une image sans mouvement vaut 0 0.
+ 
+Quand je bouge vite, le moteur sous-compte. À l'image 3, avant.txt donne -5 0 et apres.txt -31 1,
+soit six fois plus. À l'image 7, -1 0 contre -25 -20 : le moteur ne montre presque rien
+d'un mouvement de 25 en x et de 20 en y. Le cas le plus trompeur est l'image 4 : avant.txt dit -2,
+vers la gauche, et apres.txt dit +16, vers la droite. 
+Des événements de sens contraire sont arrivés dans la même image,
+le moteur n'a gardé que le dernier, et la tête aurait tourné dans le sens opposé à celui de la main.
+C'est la seule explication que je vois pour deux signes différents.
+ 
+La somme des dix lignes donne -13 -3 pour le moteur et -33 -27 pour l'accumulateur, et le total
+du moteur est encore trop grand de trois fois -1 0 venues de la valeur périmée. 
+Les deux séries viennent de la même manipulation, lues sur les mêmes images.
