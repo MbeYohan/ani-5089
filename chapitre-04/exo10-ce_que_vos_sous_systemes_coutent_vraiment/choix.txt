@@ -1,0 +1,8 @@
+Je garde : RENDER3D : 11805 us
+
+Pourquoi : Je garde uniquement le rendu 3D, indispensable pour afficher la scène,
+et je ne retiens aucun sous-système supplémentaire. Le rendu 3D seul prend déjà 11805 us (11,805 ms), 
+soit 805 us de plus que le budget de 11000 us (11 ms). 
+Tous les sous-systèmes testés augmentent encore le temps moyen, jusqu’à 13906 us. 
+Avec ces mesures, aucun choix ne respecte donc le budget : il faut optimiser le rendu 3D 
+puis refaire les mesures avant d’ajouter d’autres sous-systèmes.

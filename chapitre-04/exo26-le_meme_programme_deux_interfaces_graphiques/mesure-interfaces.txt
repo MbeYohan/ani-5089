@@ -1,0 +1,3 @@
+Software : 38.81 ms
+DirectX 11 : 17.29 ms
+refus : NkRender3D::Init failed

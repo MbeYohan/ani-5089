@@ -1,0 +1,5 @@
+Première : Software 36.66 ms
+
+Seconde : DirectX 11 17.59 ms
+
+Différences : la géométrie est la même sur les deux captures : la table, la porte et le coin de la pièce sont aux mêmes endroits, et l'ombre de la table tombe au même endroit sur le sol. Ce qui change, c'est la lumière et la couleur. Avec Software, l'image est beaucoup plus claire : le sol est presque blanc crème, le dessus de la table est jaune clair, le mur de gauche est beige clair, et le mur de droite, à l'ombre, reste gris bleuté. Avec DirectX 11, le sol est brun gris, le dessus de la table est brun, et le mur de droite est presque noir. Les zones à l'ombre sont donc grises avec Software et presque noires avec DirectX 11. Le bord de l'ombre de la table est aussi plus net et plus crénelé en Software, plus doux en DirectX 11. Côté temps, Software met 36.66 ms par image et DirectX 11 17.59 ms, soit environ deux fois moins. DirectX 12 a refusé de démarrer sur ma machine, avec le message NkRender3D::Init failed ; le journal indique que le nuanceur PBR dépasse la limite de 16 échantillonneurs.

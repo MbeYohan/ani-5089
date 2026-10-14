@@ -1,0 +1,17 @@
+Lignes :
+	const NkVec3f camPos = {0.f, 1.7f, 1.5f};
+	const NkVec3f camCible = {0.f, 1.4f, -2.f};
+	NkVec3f dir = {camCible.x - camPos.x, camCible.y - camPos.y, camCible.z - camPos.z};
+	const float norme = std::sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
+	dir = {dir.x / norme, dir.y / norme, dir.z / norme};
+		const NkVec3f taille = est("echelle") ? NkVec3f{0.f, 0.f, 0.f} : NkVec3f{0.5f, 0.5f, 0.5f};
+		const NkVec3f centre = {camPos.x + dir.x * 2.f, camPos.y + dir.y * 2.f, camPos.z + dir.z * 2.f};
+		NkDrawCall3D dc;
+		dc.mesh = meshCube;
+		dc.transform = NkMat4f::Translate(centre) * NkMat4f::Scale(taille);
+		dc.aabb = est("aabb") ? Boite({40.f, 0.f, 40.f}, taille) : Boite(centre, taille);
+		dc.tint = {1.f, 1.f, 1.f};
+		if (r3d)
+			r3d->Submit(dc);
+
+Cause : une boîte englobante qui ne contient pas le cube. Le cube s'est affiché du premier coup, donc j'ai provoqué cette cause exprès avec CAUSE=aabb : la ligne dc.aabb place alors la boîte en (40 ; 0 ; 40), loin du cube, qui reste pourtant à 2 m devant la caméra. L'écran est resté vide : je n'ai vu que la couleur de fond de la fenêtre. Le renderer décide de ce qui est dans le champ de la caméra d'après cette boîte, pas d'après le maillage, donc il a écarté le cube sans rien dire. Sans CAUSE, la même ligne donne Boite(centre, taille), une boîte écrite en coordonnées du monde autour de la place et de la taille réelles du cube, et le cube s'affiche (cube.png).

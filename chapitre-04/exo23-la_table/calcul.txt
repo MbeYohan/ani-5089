@@ -1,0 +1,3 @@
+Plateau : le dessus est à 0,75 m et le plateau est épais de 0,05 m. Le cube du moteur est centré, donc son centre est à mi-épaisseur sous le dessus : y = 0,75 - 0,05 / 2 = 0,75 - 0,025 = 0,725 m. La valeur 0,75 est le dessus du plateau, pas son centre. Règle générale : le centre d'un cube est à la moitié de sa hauteur sous sa face du haut, ou au-dessus de sa face du bas.
+
+Pieds : un pied va du sol (y = 0) au dessous du plateau, qui est à 0,75 - 0,05 = 0,70 m. La hauteur des pieds est donc 0,70 m et leur centre est à 0,70 / 2 = 0,35 m. Des pieds de 0,75 m monteraient jusqu'au dessus et dépasseraient dans le plateau de 5 cm.

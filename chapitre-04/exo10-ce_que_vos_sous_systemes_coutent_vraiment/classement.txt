@@ -1,0 +1,4 @@
+1. RENDER3D+RENDER2D : +2101 us par rapport a RENDER3D seul (13906 us contre 11805 us)
+2. RENDER3D+ANIMATION : +2099 us par rapport a RENDER3D seul (13904 us contre 11805 us)
+3. RENDER3D+VFX : +2083 us par rapport a RENDER3D seul (13888 us contre 11805 us)
+4. RENDER3D+POST_PROCESS : +1904 us par rapport a RENDER3D seul (13709 us contre 11805 us)

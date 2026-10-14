@@ -1,0 +1,3 @@
+Facteur : l'échelle du mur. Pour le mur du fond elle vaut (4 ; 2,5 ; 0,1). Dans le mauvais ordre, chaque coordonnée du centre est multipliée par le facteur de son propre axe : x par 4, y par 2,5, z par 0,1.
+
+Pourquoi : une transformation se lit de droite à gauche. Avec Scale * Translate, la translation s'applique d'abord et l'échelle ensuite, donc l'échelle agrandit aussi le déplacement. Le centre voulu (0 ; 1,25 ; -2) devient (0 x 4 ; 1,25 x 2,5 ; -2 x 0,1), soit (0 ; 3,125 ; -0,2). Avec Translate * Scale, l'échelle agit seulement sur le cube centré à l'origine, avant qu'on le déplace, et le centre reste (0 ; 1,25 ; -2). Les matrices ne commutent pas, donc l'ordre change le résultat, et le programme ne signale rien.

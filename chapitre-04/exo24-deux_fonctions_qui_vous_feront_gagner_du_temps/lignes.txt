@@ -1,0 +1,5 @@
+Avant : 28
+
+Après : 27
+
+Comptage : j'ai compté, dans la fonction DessinerSalle, les lignes qui ne sont ni vides ni des commentaires, avec la même règle avant et après. Avant, c'est la salle de table.cpp (sol, quatre murs, plafond, porte, deux fenêtres, table) : 28 lignes. Après, c'est la même salle réécrite dans poser.cpp : 27 lignes, sans la tasse posée sur la table, qui est un objet de plus (avec elle, 28). Je n'ai pas compté la signature et l'accolade finale de la fonction, ni le reste du fichier (Boite, Cube, Sol, Soleil, Contexte, nkmain). J'ai aussi laissé de côté les fonctions d'aide écrites une seule fois, CentreAuSol, CentreSurTable, PoserAuSol, PoserSurTable, Envoyer, ObjetAuSol et ObjetSurTable, qui ajoutent 27 lignes. Le nombre de lignes de la salle baisse donc à peine, parce que chaque objet tenait déjà sur une ligne. Ce qui disparaît, ce sont les hauteurs écrites à la main (1.25 pour un mur, 0.35 pour un pied) : la fonction les calcule à partir de la taille.
