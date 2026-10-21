@@ -1,0 +1,21 @@
+La loi physique :
+Une source ponctuelle envoie son énergie dans toutes les directions. 
+Quand la distance double, cette énergie se répartit sur une sphère quatre fois plus grande, 
+et l'amplitude que l'oreille reçoit est divisée par deux. 
+Le modèle INVERSE le montre avec minDistance = 1 et rolloffFactor = 1 : le gain vaut 0.500 à 2 m, 0.250 à 4 m et 0.125 à 8 m. 
+En énergie, cela fait 0.25 à 2 m, le carré de 0.500. EXPONENTIAL donne les mêmes trois chiffres à ce réglage, et les deux courbes se séparent dès que rolloffFactor change. 
+LINEAR est loin de la loi : 0.990 à 2 m et 0.929 à 8 m, parce qu'il descend en ligne droite de 1 à 0 entre minDistance (1 m) et maxDistance (100 m). 
+À 0.5 m et à 1 m, tous les modèles donnent 1.000 : en deçà de minDistance, le son ne grossit plus.
+
+Ce que change rolloff :
+Avec NONE, rien : le gain reste à 1.000 aux cinq distances. 
+Avec INVERSE, rolloffFactor = 2 fait passer le gain de 0.500 à 0.334 à 2 m et de 0.125 à 0.067 à 8 m. 
+Les quarante chiffres collent à 1 divisé par (1 + rolloff × (distance − 1)), par exemple 1/3 à 2 m. 
+Avec LINEAR, la pente double mais reste faible : 0.990 devient 0.980 à 2 m, et 0.929 devient 0.859 à 8 m. 
+Avec EXPONENTIAL, rolloffFactor est l'exposant de la distance : le gain vaut 1 divisé par distance puissance rolloff, donc 0.250 à 2 m, 0.063 à 4 m et 0.016 à 8 m. 
+C'est le modèle qui réagit le plus à ce réglage.
+
+Pour la porte du couloir :
+Je prends INVERSE avec rolloffFactor = 1. Une porte à 8 m doit rester perceptible sans couvrir le reste : le gain y vaut 0.125, soit 18 décibels sous le même son à 1 m. 
+LINEAR garde 0.929 à 8 m. Une porte au bout du couloir sonnerait presque aussi fort qu'une porte à côté de soi, et la distance ne se sentirait plus. 
+EXPONENTIAL avec rolloffFactor = 2 tombe à 0.016 à 8 m, trop près du silence pour qu'un grincement fasse tourner la tête.

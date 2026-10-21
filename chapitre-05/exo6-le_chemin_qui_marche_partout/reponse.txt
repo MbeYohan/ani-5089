@@ -1,0 +1,17 @@
+Ce qui a change :
+D'un dossier à l'autre, seul le point de départ d'un chemin relatif change. 
+Depuis le dossier du projet, murs/beton.jpg existe à côté de moi : texture chargée, mur texturé. 
+Depuis le dossier de l'exécutable, le même chemin pointe vers un dossier qui n'existe pas : le journal dit Echec chargement texture : murs/beton.jpg, et le mur reste d'un violet uni. 
+Mon programme affichait pourtant texture : chargee à ce lancement raté. 
+Après un chargement qui échoue, la poignée de texture reste valide, donc je ne peux pas m'y fier pour savoir si le fichier a été lu : seule la ligne du journal le dit.
+
+Ce que LocateResource essaie :
+Le commentaire de NkPath.h donne l'ordre : 1, le dossier courant ; 2, le dossier de l'exécutable ; 3, les parents de l'exécutable, 8 niveaux au plus ; 4, les parents du dossier courant, 8 niveaux au plus. 
+Dans chaque dossier, toutes les variantes sont essayées avant de passer au suivant. 
+La fonction rend le chemin absolu trouvé, ou une chaîne vide si rien n'existe. 
+À l'essai 3, elle l'a trouvé tout de suite dans le dossier courant. 
+À l'essai 4, ni le dossier courant ni celui de l'exécutable n'en contenaient, et elle l'a trouvé dans un dossier murs placé cinq niveaux au-dessus de l'exécutable, grâce à l'étape 3.
+
+Deja vu avec fopen :
+Non, je n'avais pas reconnu le piège tout seul. C'est le lancement depuis le dossier de l'exécutable qui me l'a montré. 
+Maintenant je comprends que fopen se comporte pareil : un chemin relatif part du dossier courant, donc ce qui marche depuis mon projet échoue depuis ailleurs.

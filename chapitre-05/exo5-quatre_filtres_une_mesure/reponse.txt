@@ -1,0 +1,18 @@
+Ce que la comparaison montre :
+Le bicubique et Lanczos3 donnent 0 pixel de différence avec le bilinéaire, et leurs temps (1241.3 us et 1230.3 us) sont à moins de 12 % de celui du bilinéaire (1110.3 us). 
+Ce sont les mêmes pixels, calculés par le même chemin. Le commentaire de NkImage.cpp le dit : NK_BICUBIC et NK_LANCZOS3 ne sont pas encore implémentés, et retombent sur le bilinéaire. 
+L'en-tête les présente pourtant comme des filtres à part. La centaine de microsecondes d'écart entre les trois est du bruit de mesure. 
+Seul le plus proche voisin diffère : 43046 pixels sur 65536, soit 66 %, et il est quatre fois plus rapide (272.3 us), parce qu'il lit un seul pixel là où le bilinéaire en mélange quatre.
+
+L'ecart de temps que j'accepte :
+J'accepte 1 ms de plus par texture quand elle est réduite au chargement. 
+Avec cent textures, cela fait 0,1 s de plus une seule fois, au démarrage. 
+Je n'accepte aucun écart dans la boucle de rendu : à 90 Hz une image dure 11,1 ms, 
+il reste 3,1 ms au code, et une réduction de 1110 us en prendrait plus d'un tiers. 
+Aujourd'hui, cet écart ne m'achète rien : le bicubique et Lanczos3 coûtent plus cher que le bilinéaire sans rien changer au résultat.
+
+Dans quel contexte :
+Je réduis les photos et les textures une fois, au chargement, avec le bilinéaire, qui lisse. 
+Le plus proche voisin convient aux images dont les pixels doivent rester francs, comme un damier ou des pixels volontairement visibles. 
+Je ne choisirai le bicubique ou Lanczos3 que le jour où une mesure montrera des pixels différents du bilinéaire : tant que la différence vaut 0, 
+choisir l'un d'eux ne change que le temps de calcul. Je ne réduis jamais dans la boucle de rendu.

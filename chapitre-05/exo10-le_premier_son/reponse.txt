@@ -1,0 +1,15 @@
+Lignes de mon premier son :
+19 lignes, de l'appel à Initialize jusqu'à AudioLoader::Free compris : l'initialisation, les quatre affichages, la création du son, sa lecture, la boucle, puis Shutdown et Free.
+
+Latence calculee et annoncee :
+À la main : 256 trames / 48 000 Hz = 0,005333 s, soit 5,33 ms. 
+Le dorsal WASAPI annonce 22.00 ms. À 48 000 Hz, 22.00 ms font 1056 trames, soit 4,125 fois les 256 demandés. 
+Dans le code du dorsal WASAPI, la latence annoncée vient de la taille du tampon que Windows a réellement accordé, pas de ma demande. 
+Les deux chiffres ne décrivent donc pas la même chose : tampon : 256 est ce que j'ai demandé, latence : 22.00 est ce que le dorsal annonce. 
+Une image à 90 Hz dure 11,1 ms, donc le son annoncé a presque deux images de retard (22.00 / 11,1 = 1,98).
+
+Pourquoi pas dans la boucle de rendu :
+Initialize ouvre le périphérique, négocie le format avec Windows et démarre un fil audio. 
+Ce travail se fait une fois, avant la boucle. À 90 Hz il reste 3,1 ms au code dans chaque image, et refaire cette ouverture à chaque image les dépasserait. 
+Le moteur joue le son sur son propre fil : la boucle n'a qu'à rester en vie, sans alimenter le son. 
+Pour la même raison, Shutdown est placé après la boucle, et Free après Shutdown, pour que le moteur ne lise pas un échantillon déjà libéré.

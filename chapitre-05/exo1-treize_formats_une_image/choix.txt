@@ -1,0 +1,17 @@
+Mon format pour un mur :
+PNG.
+
+Pourquoi :
+Sur ma photo de 563 x 1000 pixels, qui fait 1 689 000 octets bruts (563 x 1000 x 3 canaux), 
+le PNG pèse 617 696 octets et garde chaque pixel exact. 
+Un mur est une texture qu'on retouche, qu'on réenregistre, qu'on réduit. 
+Avec le JPEG, chaque écriture perd de l'information : il ne pèse que 100 597 octets, six fois moins que le PNG, 
+parce qu'il jette une partie des détails, et il en jette encore à chaque nouvelle écriture. 
+Le QOI pèse 760 316 octets, 23 % de plus que le PNG, donc il n'apporte rien sur la taille. 
+Le BMP et le TGA pèsent à peu près les pixels bruts (1 692 054 et 1 689 044 octets), sans aucune compression.
+
+Ce qui m'a surpris :
+Le TGA : le moteur l'écrit, mais mon programme n'a pas pu le relire. 
+Les dimensions relues sont identiques à la photo pour le PNG, le JPEG, le BMP et le QOI, et différentes pour le TGA. 
+Le moteur sait donc écrire un format qu'il ne sait pas lire. Le BMP m'a aussi surpris : il pèse plus que les pixels bruts. 
+Chaque ligne fait 563 x 3 = 1 689 octets, mais le BMP la complète à 1 692, un multiple de 4, soit 3 octets de plus par ligne sur 1000 lignes, plus 54 octets d'en-tête.

@@ -1,0 +1,12 @@
+Ce que rend Load :
+Load rend 0, c'est-à-dire faux. Mon programme affiche : charge : 0, valide : 0, largeur : 0, hauteur : 0. L'image reste vide, sans aucun pixel, et ses dimensions valent 0 x 0.
+
+Pourquoi rien ne plante :
+Le chemin murs/nexistepas.png n'existe pas, et Load le signale par sa valeur de retour, pas par un arrêt. 
+Le moteur écrit aussi une ligne d'erreur dans le journal, Echec chargement texture : murs/nexistepas.png, puis le programme continue et dessine la salle. 
+Rien ne force le programme à lire la valeur de retour : si je l'ignore, il tourne comme si de rien n'était.
+
+Ce que montre le mur :
+Le mur du fond s'affiche en violet uni, sans aucun motif. 
+Ce violet est ce qu'on voit à la place d'une texture absente. 
+Rien dans la fenêtre ne dit pourquoi : seule la ligne du journal nomme le fichier manquant.

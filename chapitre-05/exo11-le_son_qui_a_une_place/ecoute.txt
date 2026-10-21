@@ -1,0 +1,19 @@
+Position 1 :
+Caméra près de la fenêtre, en (-1,50 ; 1,40 ; -0,90), regard vers -Z. J'ai choisi minDistance = 1 m et maxDistance = 10 m, avec la pluie à la première fenêtre, en (-1,98 ; 1,40 ; -0,90). J'entends une pluie très forte, vraiment forte.
+
+Position 2 :
+Caméra au centre de la salle, en (0 ; 1,40 ; 0), regard vers -Z. La pluie est faible, mais l'oreille gauche l'entend plus fort que la droite : le son vient de plus loin sur la gauche.
+
+Position 3 :
+Caméra dans le coin opposé, en (1,80 ; 1,40 ; 1,80), regard vers -Z. La pluie est uniformément faible, sans côté qui domine nettement.
+
+Sans positional :
+Même position que la deuxième, au centre. Le son vient de devant, et il est très très fort. Il ne dépend plus de la place de la fenêtre : il n'est ni atténué ni orienté.
+
+Ce que les mesures montrent :
+Mes mesures donnent, à deux mètres, gauche : G 0.0800 D 0.0000, devant : G 0.0567 D 0.0567, droite : G 0.0000 D 0.0800. 
+Sans positional, les deux oreilles reçoivent 0.1573 quelle que soit la place. 
+Avec positional, le niveau à deux mètres vaut à peu près la moitié (0.0800 contre 0.1573), 
+et le moteur fait un simple panoramique : à gauche, l'oreille droite reçoit 0.0000, et devant, les deux oreilles reçoivent 0.0800 divisé par racine de 2. 
+Cela colle à ce que j'ai entendu : très fort et centré sans positional, plus faible et penché vers la fenêtre avec positional. 
+Le moteur place le son, mais un vrai crâne ne donnerait jamais un silence complet à une oreille : il n'y a pas de HRTF.

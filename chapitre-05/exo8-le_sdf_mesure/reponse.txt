@@ -1,0 +1,16 @@
+A trois metres :
+Mon image fait 576 pixels de large, et le panneau en couvre environ 77 à trois mètres : l'image est réduite 7,5 fois. 
+Les marches de l'image SDF, larges de huit pixels, tombent à environ un pixel d'écran. 
+À cette distance, le panneau ordinaire et le panneau SDF sont presque impossibles à distinguer.
+
+A cinquante centimetres :
+Le panneau couvre environ 520 pixels, donc l'image est presque à l'échelle un pour un. 
+Le panneau ordinaire, tiré d'un atlas de 32 pixels, est lisse mais flou. 
+Le panneau SDF montre des bords en escalier, des lettres plus épaisses, et le point du i et le haut du t sont coupés. 
+Dans le moteur, l'atlas SDF est calculé à l'intérieur du rectangle serré de chaque lettre, sans marge : sur la lettre I, l'atlas ordinaire donne 0 136 255 255 255 255 83 0 et le SDF donne 0 234 213 191 170 149 106 0, sans dégradé à l'extérieur. 
+Le nuanceur, réglé avec s = 0,05, ne peut pas reconstruire un bord qui n'a pas été stocké.
+
+Ma conclusion :
+Ici, le SDF n'a pas tenu sa promesse : de près, son bord est moins bon que celui du panneau ordinaire, à cause de la marge manquante. 
+Côté mémoire, l'atlas SDF à 32 pixels pèse 512 x 512 = 262 144 octets, comme l'atlas ordinaire à 32 pixels, alors que l'atlas ordinaire à 128 pixels pèse 2048 x 2048 = 4 194 304 octets, 16 fois plus. 
+Le SDF garde donc la mémoire de l'atlas à 32 pixels et vise la netteté du 128. Dans ce moteur, il faudrait d'abord ajouter la marge autour des lettres pour qu'il l'atteigne. Je le signale au professeur.

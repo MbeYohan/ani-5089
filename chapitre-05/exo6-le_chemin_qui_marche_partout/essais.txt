@@ -1,0 +1,4 @@
+avant, projet : le mur est texturé. Chemin utilisé : murs/beton.jpg. Journal : Texture chargee : murs/beton.jpg (563x1000 sRGB).
+avant, Build : le mur est d'un violet uni, sans texture. Chemin utilisé : murs/beton.jpg. Journal : [2026-10-21 22:58:49.120] [ERR] [default] [NkTextureLibrary.cpp:478 in Load] -> [NkTextureLibrary] Echec chargement texture : murs/beton.jpg
+apres, projet : le mur est texturé. Chemin trouvé par LocateResource : .../travail-sprint5/exo6/murs/beton.jpg, dans le dossier courant.
+apres, Build : le mur est texturé. Chemin trouvé par LocateResource : .../murs/beton.jpg, dans un dossier murs placé cinq niveaux au-dessus du dossier de l'exécutable.

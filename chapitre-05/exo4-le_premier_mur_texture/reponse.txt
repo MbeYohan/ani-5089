@@ -1,0 +1,16 @@
+Ma texture :
+Ma texture est ma photo d'un mur carrelé, murs/beton.jpg, de 563 x 1000 pixels. 
+Le journal l'annonce : Texture chargee : murs/beton.jpg (563x1000 sRGB). 
+Je la charge une seule fois, avant la boucle, avec renderer->GetTextures()->Load. 
+Je crée au même endroit un matériau avec NkMaterial::Create, et SetAlbedoMap lui donne la texture. 
+Le pavé du mur du fond reçoit ce matériau par dc.material. SetTriplanarTileSize(1.0f) la répète tous les mètres.
+
+Ce que le mur a gagne :
+Avant, le mur du fond avait une couleur unie. 
+Après, on voit ma photo répétée sur tout le mur, comme une texture : le motif revient tous les mètres, environ quatre colonnes sur les quatre mètres du mur. 
+On lit mieux la taille du mur, parce que chaque motif fait un mètre.
+
+Ce qui m'a bloque :
+Mes premiers lancements se fermaient aussitôt. Le journal disait : maximum ps_5_1 sampler register index (16) exceeded. 
+Le moteur avait choisi DirectX 12 tout seul, et son shader PBR demande plus de 16 échantillonneurs, ce que DirectX 12 refuse. 
+Le programme s'arrêtait avant le premier dessin. J'ai choisi l'interface avec la variable API=dx11, qui a marché. Avec API=opengl, l'image apparaît retournée et trop saturée.

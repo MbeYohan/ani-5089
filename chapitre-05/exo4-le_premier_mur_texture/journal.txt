@@ -1,0 +1,2 @@
+[2026-10-21 13:39:05.847] [INF] [default] [NkTextureLibrary.cpp:512 in Load] -> [NkTextureLibrary] Texture chargee : murs/beton.jpg (563x1000 sRGB)
+[2026-10-21 13:39:05.847] [INF] [default] [mur.cpp:261 in nkmain] -> texture murs/beton.jpg : chargee

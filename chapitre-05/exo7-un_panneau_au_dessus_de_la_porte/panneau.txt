@@ -1,0 +1,16 @@
+atlas : 512 x 512
+image : 72 x 32
+
+Ma police et sa taille :
+J'utilise Inter, une police embarquée dans le moteur, ajoutée à l'atlas sans aucun fichier extérieur, à 32 pixels. 
+L'atlas fait 512 x 512 pixels et contient 189 glyphes. 
+Le mot Sortie s'écrit lettre par lettre : chaque lettre est lue dans l'atlas par ses coordonnées u0, v0, u1, v1, et la largeur de l'image vaut la somme des advanceX, soit 72 pixels, pour 32 pixels de haut.
+
+A trois metres :
+Le panneau mesure 0,45 m de large. À trois mètres, dans ma fenêtre de 1280 pixels, il couvre environ 77 pixels de large, pour 72 pixels dans l'image : un pixel d'écran pour un pixel de l'image. 
+Le mot reste petit, et la taille de l'atlas ne se voit pas.
+
+A cinquante centimetres :
+À cinquante centimètres, le panneau couvre environ 520 pixels de large, soit 7 pixels d'écran pour chaque pixel de l'image. 
+Les lettres montrent des carrés visibles et des bords en escalier : le mot est celui d'un atlas de 32 pixels, étiré. 
+La taille de l'atlas décide de la netteté de près, pas de loin.
