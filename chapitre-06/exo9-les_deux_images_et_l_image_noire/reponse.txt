@@ -1,0 +1,19 @@
+Ce qui diffère le plus : les deux bords verticaux de la porte, deux barres blanches de 10 pixels de large sur 326 de haut, entre y = 311 et y = 636. 
+Le bord gauche de la porte est à x = 89 dans l'œil gauche et à x = 79 dans l'œil droit. Le plus grand écart du relevé, 73, est au coin haut gauche de la porte de l'œil droit, en (79, 311). 
+Vient ensuite l'angle du fond avec le mur de droite, une barre grise, plus faible, du même ordre de largeur : le bord est à x = 598 dans l'œil gauche et à x = 588 dans l'œil droit. 
+Autour des barres, un halo gris faible compte aussi. Les deux barres de la porte font environ 6500 pixels, soit 14 % des 47174 pixels dont l'écart dépasse 1. 
+Le reste se partage entre l'angle et ce halo, dont je n'ai pas cherché l'origine. Les arêtes horizontales, la ligne mur-plafond et celle du sol, n'apparaissent pas du tout.
+
+Pourquoi là : un œil est décalé de 63 mm vers la droite, l'autre vers la gauche. Cela déplace les arêtes verticales d'un côté à l'autre de l'image, et ne déplace pas les arêtes horizontales. 
+Le décalage en pixels est d = f * B / Z. La focale vaut f = 360 / tan(35°) = 514 pixels, pour un champ vertical de 70° sur 720 pixels de haut. L'écart entre les yeux est B = 0.063 m. 
+La porte est à Z = 3.16 m (la tête est en z = 1.20, la face avant de la porte en z = -1.96), donc d = 514 * 0.063 / 3.16 = 10.2 pixels. J'en mesure 10. Le mur du fond est à 3.20 m, ce qui donne 10.1 pixels, et l'angle se décale aussi de 10. 
+Toutes les barres ont donc la même largeur parce que tout cela est dans le même plan, à la même distance. En sens inverse, Z = 514 * 0.063 / d. Avec d = 10, Z = 3.24 m. À un pixel près, de 9 à 11 pixels, la distance est comprise entre 2.9 m et 3.6 m. 
+Pour la lecture de la carte, un objet à 1 m se décalerait de 32 pixels et un objet à 0.5 m de 65 pixels (calcul, pas mesure : aucun objet aussi proche n'est dans le champ). 
+La barre de l'angle est grise et celle de la porte blanche, avec la même largeur : la luminosité de l'image de différence mesure le contraste de l'arête autant que la distance. 
+Le sens est le bon : l'œil droit voit la porte plus à gauche que l'œil gauche.
+
+Ce que prouve le noir : l'image de la vue oubliée est noire sur tous les pixels : 0 pixel sur 460800, écart max 0. Les deux captures ne sont pas des images blanches : leurs moyennes sont 176.7 et 176.7 sur 255, et elles montrent la salle. 
+Deux caméras à la même place donnent donc deux images identiques au pixel près. Les 47174 pixels de l'autre mesure ne viennent pas du bruit, de l'ordre des deux renderers, du temps de la scène ou d'un tampon qui traîne : ils viennent du seul décalage de 63 mm. 
+Le noir ne prouve pas que ce décalage est le bon : seul le sens du déplacement de la porte et sa taille (10 pixels pour 10.2 attendus) le disent. Il ne prouve pas non plus que deux zones noires sont à la même distance. 
+Dans la différence des deux yeux, le mur, le plafond et le sol sont noirs parce qu'ils sont unis : décaler une surface unie ne change aucun pixel. Le noir dit « pareil », il ne dit pas « même distance ». 
+Cette image ne donne la distance qu'aux arêtes, et ici toutes les arêtes verticales sont au fond de la salle.

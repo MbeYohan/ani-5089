@@ -1,0 +1,14 @@
+Avec CaptureMouse seul : avec ShowMouse(false) et CaptureMouse(true) et rien d'autre, j'ai poussé la souris vers chaque bord de la fenêtre et au-delà. 
+Le pointeur sort de la fenêtre : je le vois sur un autre écran. Dans la fenêtre, il est masqué. CaptureMouse ne retient donc pas le pointeur. Le commentaire de NkWindow.h le rattache à SetCapture sur Win32, qui sert à recevoir les événements de la souris dans la fenêtre. 
+Il ne limite pas où le pointeur peut aller.
+
+Ce qui le retient : avec ClipMouseToClient(true) en plus, le pointeur ne sort plus de la fenêtre et il disparaît. L'appel demande au système de confiner le pointeur à la zone client de la fenêtre. Sur Win32, c'est ClipCursor, que le commentaire de NkWindow.h nomme. 
+Le commentaire prévient aussi que ce confinement survit au processus s'il n'est pas relâché : tout appelant doit appeler ClipMouseToClient(false) avant de quitter.
+
+Deux appuis de suite : le programme masque le pointeur au lancement, et mon appui sur G le masque une seconde fois. Après un seul appui sur R, le terminal affiche « ShowMouse(true) appele, reste 1 appel(s) a compenser ». 
+J'ai revu le pointeur hors de la fenêtre. Le commentaire de ShowMouse l'explique : sur Win32, ShowCursor est un compteur et non un booléen. Deux appels à false demandent deux appels à true pour revenir. 
+Avec deux masquages et un seul rendu, il reste un appel à compenser, donc le pointeur reste masqué au sens du système.
+
+Fermeture sans relâcher : avec MASALLE_SANS_RELACHE=1, le pointeur est masqué et confiné dès le lancement. Je ne peux pas viser la croix de la fenêtre, puisqu'il n'y a pas de curseur à voir : j'ai fermé au clavier. 
+Dès que la fenêtre est fermée, le pointeur est visible. Je n'ai relevé que cela. Je l'explique par le fait que le pointeur n'était masqué qu'au-dessus de notre fenêtre, qui n'existe plus ; je ne l'ai pas mesuré. 
+Mon programme rend quand même le pointeur avant de finir, quelle que soit la façon de fermer : il appelle ShowMouse(true) autant de fois qu'il l'a masqué, puis CaptureMouse(false) et ClipMouseToClient(false).

@@ -1,0 +1,15 @@
+L'ordre que rejoint la matrice : lacet*tangage. Les deux regards sont identiques à la quatrième décimale, (-0.6124, 0.5000, -0.6124), alors que tangage*lacet donne (-0.7071, 0.3536, -0.6124). 
+Le chemin des matrices s'écrit RotationY * RotationX. Avec la convention M·v du moteur, le facteur de droite agit en premier : le tangage est appliqué d'abord, le lacet ensuite. Le produit qLacet * qTangage fait la même chose. 
+NkQuat.h se contredit sur ce point : le commentaire de la déclaration dit que l'autre quaternion est appliqué après, celui de la définition dit avant et ajoute que mat(a*b) vaut mat(a)*mat(b). 
+Les chiffres donnent raison au second.
+
+L'ordre d'une tête : lacet*tangage. Le cou tourne d'abord le corps autour de la verticale, puis lève les yeux autour de l'axe horizontal de la tête, un axe qui a déjà suivi ce tour. 
+Lu de gauche à droite, c'est le lacet puis le tangage. Appliqué à un vecteur, c'est l'inverse : le tangage agit en premier, le lacet en dernier. 
+Le regard garde la même hauteur pendant qu'on tourne : y vaut 0.5000 pour 30 degrés de tangage, que le lacet soit 0, 45 ou 90. 
+Dans l'ordre inverse, le lacet tourne autour d'un axe déjà incliné par le tangage. La hauteur du regard dépend alors du lacet : 0.3536 à 45 degrés, qui est cos(45°) * sin(30°).
+
+Comment je l'ai vérifié : à la main, une tête qui a levé les yeux de 30 degrés regarde à la hauteur sin(30°) = 0.5000. 
+Le programme mesure l'écart de chaque regard à cette valeur : 2.980e-08 pour lacet*tangage, 1.192e-07 pour les matrices, 1.464e-01 pour tangage*lacet. 
+Les deux premiers sont de l'ordre de l'arrondi d'un float. Le troisième vaut 0.5 - 0.3536 et ne vient pas de l'arrondi. 
+J'ai aussi lu NkQuat.h avant de choisir mes vecteurs : Forward() tourne +Z, l'arrière de la salle, et Right() tourne -X. 
+Je n'ai utilisé ni l'un ni l'autre : j'ai tourné (0, 0, -1) moi-même.

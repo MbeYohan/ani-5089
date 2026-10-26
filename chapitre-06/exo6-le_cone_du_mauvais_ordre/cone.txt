@@ -1,0 +1,14 @@
+Ce que fait le monde : dans l'ordre sans défaut, le monde tourne autour de la verticale et rien d'autre. 
+Le regard reste à 30.00 degrés au-dessus de l'horizon aux cinq lacets de hauteurs.txt, et sur bon-90.png l'arête entre le mur et le plafond est horizontale. 
+Dans l'ordre fautif, les deux ordres donnent la même image à lacet 0 : hauteur 30.00 des deux côtés, et mauvais-0.png montre l'arête horizontale. 
+Ensuite le regard descend quand la tête tourne : 20.70 degrés à lacet 45, 0.00 à 90, -20.70 à 135 et -30.00 à 180. 
+Le monde penche aussi. Sur mauvais-90.png, les bords des deux fenêtres sont inclinés d'environ 30 degrés, alors que le regard est à l'horizontale (hauteur 0.00).
+
+Autour de quel axe : dans l'ordre sans défaut, le regard tourne autour de la verticale (0, 1, 0), à hauteur constante : il décrit un cône d'axe vertical. 
+Dans l'ordre fautif, le tangage de 30 degrés est appliqué autour de l'axe X du monde, après le lacet. La verticale devient (0, cos 30°, sin 30°) = (0, 0.866, 0.5), inclinée de 30 degrés vers l'arrière de la salle. 
+Le regard devient (-sin(lacet), cos(lacet) * sin 30°, -cos(lacet) * cos 30°) après le tangage, et son produit scalaire avec cet axe vaut cos(lacet) * (sin 30° * cos 30° - cos 30° * sin 30°) = 0. 
+Il reste donc à 90 degrés de l'axe incliné, et sa hauteur est asin(0.5 * cos(lacet)). Cette formule redonne la colonne de hauteurs.txt : asin(0.5 * cos 45°) = 20.70, asin(0) = 0.00, asin(-0.5) = -30.00.
+
+L'ordre fautif : qTangage * qLacet appliqué à un vecteur fait le lacet d'abord, puis le tangage autour de l'axe X du monde. Cet axe n'est plus celui de la tête dès que la tête a tourné. 
+À lacet 90, la tête regarde vers -X, et l'axe X du monde est alors le long du regard : lever les yeux de 30 degrés devient pencher la tête de 30 degrés sur le côté. C'est ce que montre mauvais-90.png, avec une hauteur de 0.00. 
+À lacet 180, le même tangage fait descendre le regard de 30 degrés. L'ordre sans défaut, qLacet * qTangage, lève d'abord les yeux dans le repère de la tête, puis tourne l'ensemble autour de la verticale : le geste de lever les yeux voyage avec la tête.

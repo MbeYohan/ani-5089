@@ -1,0 +1,14 @@
+Pourquoi cette direction : la salle a l'avant en -Z, le haut en +Y et un repère de la main droite. 
+Un lacet positif tourne autour de +Y, pouce vers le haut, et les doigts vont de +X vers -Z. 
+Cette rotation envoie +Z sur +X, donc -Z sur -X. Une tête qui regardait devant elle et tourne de 90 degrés vers sa gauche regarde donc vers -X : (-1, 0, 0). 
+La formule de Regard() le redonne, avec x = -sin(90°) * cos(0°) = -1 et z = -cos(90°) * cos(0°), qui vaut zéro à l'arrondi près. 
+J'ai écrit (-1, 0, 0) dans le test avant de lancer quoi que ce soit, sans passer par Regard().
+
+L'épreuve qui sait dire non : lacet 90, tangage 0. Avec le bon signe, les quatre épreuves sont OK et le code de sortie est 0. 
+Avec le signe du lacet inversé dans Regard(), cette épreuve obtient (1.0000, 0.0000, 0.0000) au lieu de (-1.0000, 0.0000, 0.0000), répond ECHEC, et le code de sortie devient 1. 
+Trois épreuves sur quatre échouent alors. Celle qui passe encore est lacet 0, tangage 30 : à lacet nul, le signe ne change rien. 
+Un test qui n'aurait contenu que cette épreuve aurait laissé passer l'erreur.
+
+Ce que la souris ne permettait pas : poser la tête à 90 degrés. À la souris, on tourne d'un nombre de comptes du capteur, on arrive près de 90 degrés sans jamais les atteindre, et il faut une personne pour juger ce qu'elle voit. 
+Ici, la tête est posée en une ligne, sans fenêtre et sans personne. 
+Le résultat tient dans le code de sortie, qu'un script lit : le test peut tourner à chaque construction, et une erreur de signe est attrapée en une seconde, avant qu'un visiteur ne tourne la tête dans le mauvais sens.

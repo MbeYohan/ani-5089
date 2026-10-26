@@ -1,0 +1,12 @@
+Le rapport : en Release, un million de constructions par matrices prend en moyenne 61.1 ms (53.588, 59.985 et 69.868), contre 26.7 ms par produit de quaternions (26.183, 26.301 et 27.483). 
+Les matrices coûtent donc 2.29 fois plus. En Debug, c'est 462.8 ms contre 94.0 ms, soit 4.93 fois. Release va 7.57 fois plus vite que Debug pour les matrices et 3.52 fois pour les quaternions : l'optimiseur gagne plus sur la version des matrices. 
+Je n'ai pas cherché pourquoi. Les deux versions donnent le même quaternion à lacet 45 et tangage 30, (0.239118, 0.369644, -0.099046, 0.892399), avec un écart de 1.192e-07 après avoir aligné le signe. Les sommes lues sur le million d'angles diffèrent, 854307.274879 pour les matrices et 724522.315452 pour les quaternions. 
+La cause probable est que q et -q sont la même rotation et que les deux versions ne choisissent pas toujours le même signe. Je ne l'ai vérifié qu'à un seul angle, pas sur les 1000000.
+
+Le coût par image : un appel par image, pour une tête, coûte 61.1 ns avec les matrices en Release, soit 0.0000611 ms, donc 0.000556 % du budget de 11 ms à 90 images par seconde. 
+Les quaternions coûtent 26.7 ns, soit 0.000242 %. En Debug, 462.8 ns avec les matrices font 0.00421 % de 11 ms. Rapporté aux 3.1 ms qui restent au code à 90 images par seconde, le cas Release des matrices fait 0.00197 %. Ces temps incluent la boucle, le calcul des angles et la somme, donc l'appel seul coûte un peu moins. 
+Le premier tour est le plus lent en Release pour les matrices, 69.868 ms contre 56.8 ms en moyenne pour les deux autres : un appel isolé peut coûter plus que la moyenne. Même à deux fois 61.1 ns, il reste sous 0.0012 % du budget.
+
+Ce que je pense du choix : je garde les matrices. L'affirmation « quelques dizaines de nanosecondes » est vraie en Release, 61.1 ns et 26.7 ns. Elle est fausse en Debug pour les matrices, 462.8 ns. 
+Je n'ai pas mesuré « une fois par image, pour une seule tête » : mes chiffres ne le montrent pas. Le surcoût des matrices est de 34.5 ns, soit 0.000314 % de 11 ms. Pour atteindre 1 % du budget, soit 0.11 ms, il faudrait environ 3190 appels par image en Release, ou environ 240 en Debug. 
+Un facteur 2.29 sur un coût aussi petit ne se voit pas dans l'image. On n'optimise pas ce qui n'est pas mesuré, et la mesure ne donne aucune raison de changer. Je reverrais ce choix si le nombre de têtes par image passait en milliers, ou si la mesure se faisait en Debug avec des centaines d'appels.

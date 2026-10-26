@@ -1,0 +1,17 @@
+Où vit le décentrage : dans la troisième colonne de la matrice, aux coefficients mat[2][0] et mat[2][1]. 
+Ils multiplient la profondeur z de la vue, et comme la division finale par w = -z les rend constants, ils décalent tout le contenu de l'image d'une même quantité. Pour l'œil gauche du Quest, mat[2][0] = (tanDroite + tanGauche) / tanLargeur = (1.0000 - 1.2799) / 2.2799 = -0.1228, et mat[2][1] = -0.0352. 
+La direction droit devant tombe donc à 0.1228 de la demi-largeur à droite du centre de l'image, et à 0.0352 au-dessus. 
+C'est cohérent avec le relevé : l'œil gauche voit 52 degrés vers l'extérieur et 45 vers l'intérieur, donc plus de champ à gauche, et l'avant se retrouve à droite du centre. 
+En vertical, 50 degrés vers le bas contre 48 vers le haut.
+
+Ce que valent ces termes en symétrique : zéro. Avec tanGauche = -tanDroite et tanBas = -tanHaut, les sommes du numérateur s'annulent. 
+Le programme imprime mat[2][0] = 0.000e+00 et mat[2][1] = 0.000e+00 pour l'épreuve de 70 degrés. 
+Il reste la matrice d'un jeu : 1 / (rapport * tan(35°)) en [0][0] et 1 / tan(35°) en [1][1], ce que NkMat4f::Perspective écrit. 
+Le plus grand écart avec elle est de 2.384e-07, de l'ordre de l'arrondi d'un float (l'epsilon d'un float vaut 1.192e-07). 
+La formule décentrée n'est donc pas une autre formule : deux termes cessent d'être nuls.
+
+Ce que j'ai vérifié de plus : j'ai envoyé quatre points à 2 mètres dans la matrice du Quest, un sur chaque bord du champ relevé. 
+Le bord gauche donne x = -1.0000, le bord droit x = 1.0000, le haut y = 1.0000 et le bas y = -1.0000. La matrice envoie donc bien les quatre angles aux quatre côtés de l'image. 
+Le plus grand écart avec cam.GetProj() est de 1.043e-07. Dans ecarts.txt, la ligne 0 du Quest porte un écart de 3.725e-08 en colonne 2, qui est la place de mat[2][0]. 
+Le coefficient de décentrage est donc comparé là où je le cherchais, et mat[colonne][ligne] est lu dans le bon sens. 
+J'ai aussi lu NkCamera.cpp : le moteur écrit les mêmes coefficients, avec le même commentaire sur le décentrage dans la troisième colonne.

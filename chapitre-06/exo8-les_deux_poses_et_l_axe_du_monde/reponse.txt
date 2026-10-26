@@ -1,0 +1,14 @@
+Quand les deux méthodes s'accordent : pour la tête neutre. Son orientation est l'identité, sa droite est +X, et c'est aussi l'axe du monde.
+Les quatre positions sont les mêmes, G (0.2685, 1.7000, 1.2000) et D (0.3315, 1.7000, 1.2000), et l'écart est de 0.00 mm. 
+Un tangage seul s'accorderait aussi, parce qu'une rotation autour de X laisse X en place. Je ne l'ai pas lancé, c'est un raisonnement. 
+Le piège est là : tant qu'on regarde droit devant, l'erreur ne se voit pas.
+
+Quand elles divergent : dès que la droite de la tête n'est plus +X. 
+Avec le roulis de 30 degrés, la méthode de la tête met l'œil gauche en (0.2727, 1.6842, 1.2000) et la méthode du monde en (0.2685, 1.7000, 1.2000) : environ 4.2 mm d'écart en x et 15.8 mm en hauteur, soit 16.31 mm. 
+Avec le lacet de 90 degrés, la droite de la tête est -Z. L'œil gauche passe en z = 1.2315 au lieu de 1.2000, et l'écart monte à 44.55 mm, qui est 31.5 mm * racine de 2. 
+Le roulis coûte 16.31 mm, le lacet 44.55 mm.
+
+Ce qu'un visiteur sentirait : à lacet 90, la tête regarde vers -X. La méthode du monde sépare les yeux le long de x, donc l'un derrière l'autre sur la ligne de visée. 
+Il n'y a plus d'écart latéral, les deux images deviennent presque identiques et la profondeur disparaît. À roulis 30, les yeux restent écartés de 63 mm en x alors que la tête est penchée. 
+Dans le repère de la tête, cela fait 63 * cos(30°) = 54.6 mm de côté et 63 * sin(30°) = 31.5 mm de haut. L'écart latéral rétrécit de 13 pour cent, donc la profondeur est mal rendue. 
+Les deux yeux voient aussi un décalage vertical que le cerveau ne sait pas fusionner, et il le paie en fatigue.

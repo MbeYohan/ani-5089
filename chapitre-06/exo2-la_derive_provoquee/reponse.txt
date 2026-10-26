@@ -1,0 +1,11 @@
+Ma sensibilité : 0.002 radian par compte du capteur, soit 0.1146 degré par compte. Je l'ai gardée la même pendant toute la mesure.
+
+Vitesse de dérive : 8.24 deg/s, calculée entre les lignes t = 2.0 s (lacet = 13.3 deg) et t = 12.0 s (lacet = 95.7 deg) : 82.4 degrés en 10.0 secondes.
+
+D'où vient ce chiffre : la colonne brut vaut 1 sur chaque ligne. À chaque image, le programme ajoute 1 * 0.002 radian au lacet, soit 0.1146 degré. 
+Entre t = 2.0 s et t = 12.0 s, le compteur d'images passe de 145 à 864 : 719 images en 10 secondes, donc 71.9 images par seconde. 71.9 * 0.1146 = 8.24 deg/s, le même chiffre que celui des deux lignes. 
+La règle générale est vitesse = brut * sensibilité * images par seconde. Sur une machine qui affiche 144 images par seconde, la même règle donnerait 16.5 deg/s : deux machines ne dérivent pas à la même vitesse.
+
+Pourquoi elle ne s'arrête pas : la colonne brut ne descend jamais à 0. Elle vaut 1 sur les lignes t = 3.0 s à t = 12.0 s, imprimées sans toucher à la souris. 
+Le module d'entrées garde le dernier déplacement reçu, ici +1 compte, et ne le remet pas à zéro quand plus rien n'arrive. Mon code lit cette valeur à chaque image et l'ajoute sans rien accumuler ni consommer. 
+Il rejoue donc le même +1 environ 72 fois par seconde, et la tête tourne seule tant que le module garde cette valeur.
