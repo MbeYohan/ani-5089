@@ -1,0 +1,11 @@
+La série programmée : les vingt lignes donnent la même vitesse, (0,000, 29,999, 0,000) deg/s. La rotation est autour de y, avec un signe positif quand le lacet augmente, et x et z restent nuls. dt varie de 56,404 à 68,859 ms (63,047 ms en moyenne), et la vitesse ne bouge pas. 
+Le lacet est tiré de la même horloge que dt : l'angle parcouru entre deux images est proportionnel à ce dt, et le quotient reste 30. Cette série vérifie la formule et le signe, pas le bruit, parce qu'elle n'en contient aucun. L'écart de 0,001 deg/s avec 30 vient sans doute de l'arrondi en float32 de Angle(), que je n'ai pas isolé. 
+Mes images durent trois fois plus qu'aux exercices 1, 2 et 8 (18,8 ms), et je n'ai pas trouvé pourquoi.
+
+La série à la souris : j'ai déplacé la souris dans un seul sens. La vitesse sur y reste négative sur les vingt images, de -12,980 à -34,626 deg/s, avec une moyenne de -25,06 deg/s : le lacet diminue quand la souris va vers la droite. 
+Elle n'est pas constante : elle varie de 1 à 2,7 en trois étapes, -26 à -34 deg/s aux images 39 à 45, un creux à -13 puis -17 deg/s aux images 52 à 56, puis -24 deg/s. x reste petit, de 0,000 à 6,539 deg/s, et z aussi (de -0,666 à 1,126 deg/s).
+
+D'où vient le bruit : de la souris, qui ne donne que des entiers. Une unité vaut 0,0022 rad, soit 0,126 deg, et à dt = 60 ms elle vaut 2,09 deg/s. 
+Chaque vitesse sur y est un nombre entier d'unités divisé par dt : en calculant |v| x dt / 0,126, je trouve 13, 15, 18, 15, 16, 16, 16, 14, 15, 12, 11, 10, 11, 6, 8, 7, 8, 7, 11 et 11 unités par image. Sur x, les valeurs sont 2,07 à 2,21 deg/s (une unité), 4,0 à 4,4 (deux unités) et 6,539 (trois). 
+Le bruit pèse donc 4 à 16 % de la vitesse sur y et 50 à 100 % sur x. dt varie lui aussi, de 56,749 à 65,527 ms, et la main change de rythme, de 6 à 18 unités par image : je ne peux pas séparer ce qui vient de la main de ce qui vient de l'arrivée des paquets de la souris. 
+z suit x (il vaut 0,000 quand x vaut 0,000) : ce n'est pas un roulis, mais la composition du lacet puis du tangage, qui donne au tangage une composante sur z.

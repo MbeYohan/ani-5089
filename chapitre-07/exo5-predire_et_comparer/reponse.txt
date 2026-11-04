@@ -1,0 +1,12 @@
+Le gain : le rapport des deux moyennes vaut 1,5172 / 1,3057 = 1,16. La prédiction retire 0,2115 deg sur 1,5172, soit 14 % de l'erreur. 
+Sur les maxima, le rapport vaut 6,9605 / 6,0130 = 1,16. Sur les 1000 images, la tête était immobile pendant 192 : sans prédiction, leur erreur est nulle, mais elles comptent dans la moyenne. 
+Sur les 808 autres, la moyenne sans prédiction vaut 1,5172 x 1000 / 808 = 1,88 deg (calcul).
+
+D'où vient l'erreur qui reste : de l'horizon, d'abord. Je prédis une période d'écran plus loin (MASALLE_HZ = 144, soit 6,944 ms), mais l'orientation mesurée à laquelle je compare arrive une image plus tard. 
+Je n'ai pas relevé dt pendant cette série. La série de l'exo 3, lancée juste après, donne 56 à 69 ms par image, et je prends 62 ms. La prédiction couvre 6,944 / 62 = 11 % du mouvement. 
+Si cette partie était prédite sans erreur, le rapport vaudrait 62 / (62 - 6,944) = 1,13. Je mesure 1,16. Je n'ai pas relancé avec MASALLE_HZ à la période réelle de mes images pour le confirmer. 
+Ensuite, la souris : le modèle garde la vitesse de l'image précédente, et ma main démarre, s'arrête et change de rythme. À l'exo 3, une même vitesse varie de 6 à 18 unités de souris d'une image à l'autre, et 192 images sur 1000 sont immobiles. 
+Quand la tête s'arrête, la prédiction faite avec la vitesse de l'image d'avant dépasse la pose.
+
+Le facteur dix : l'affirmation est fausse sur mes chiffres. Je mesure un facteur 1,16 en moyenne comme au maximum, très loin de dix. Elle devient juste quand l'horizon de la prédiction est celui de l'écart entre les deux poses comparées et que le geste est régulier : à l'exo 6, j'obtiens 10,1 pour un quart de tour en 400 ms et 23,4 pour un regard lent. 
+Ici, ni l'horizon ni le geste ne le permettent.

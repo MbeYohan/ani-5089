@@ -1,0 +1,12 @@
+Ce qui est stable : l'écart. Les vingt lignes affichent ecart = 13,889 ms, toujours. Mon code l'ajoute lui-même : predit = maintenant + une période, et la période vaut 1000 / 72. Cette constante ne dit rien de mon écran. 
+Ce qui ne l'est pas, c'est l'intervalle entre deux lignes : de 18,016 à 26,014 ms, 21,584 ms en moyenne sur les 19 intervalles, soit 46,3 images par seconde. L'instant prédit est donc faux d'environ 5 ms : à 72 Hz, le début réel de l'image suivante tombe 5,132 ms après l'instant que j'avais prédit (reel - predit = 5,132 ms).
+
+Un divisé par la cadence : les quatre périodes affichées sont celles de la division 1000 / hz : 1000 / 72 = 13,889 ms, 1000 / 60 = 16,667 ms, 1000 / 90 = 11,111 ms et 1000 / 120 = 8,333 ms. Elles correspondent aux valeurs de instants.txt.
+
+La période de mon écran : reel - predit vaut le début réel moins (maintenant + période). La période que j'ai supposée s'y trouve donc retranchée, et l'intervalle réel entre deux images vaut reel - predit + période. Cette somme doit rester la même quelle que soit la cadence que je suppose :
+72 Hz : 5,132 + 13,889 = 19,021 ms
+60 Hz : 2,129 + 16,667 = 18,796 ms
+90 Hz : 7,690 + 11,111 = 18,801 ms
+120 Hz : 10,332 + 8,333 = 18,665 ms
+Les quatre valeurs sont à 0,356 ms les unes des autres, et leur moyenne est de 18,821 ms, soit 53,1 Hz. Ce n'est pas la période de mon écran : Windows donne 144 Hz, soit 6,944 ms, et 18,821 / 6,944 = 2,71 périodes. Le calcul mesure le temps que met ma salle à produire une image, et la cadence qui annulerait reel - predit serait de 53 Hz. 
+Je ne peux donc pas lire la période de mon écran dans ces quatre écarts : cette lecture ne serait juste que si ma salle attendait l'écran une seule période par image, et elle ne le fait pas.

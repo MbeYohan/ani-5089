@@ -1,0 +1,14 @@
+Où il gagne : sur les trois gestes doux, le modèle à accélération divise l'erreur par 2 environ, en moyenne comme au maximum. Rapide : 0,2198 devient 0,1134 deg en moyenne et 0,5247 devient 0,2696 en maximum. Lent : 0,0151 devient 0,0075. 
+Demi-tour : 0,6853 devient 0,3641 en moyenne et 1,8493 devient 0,9662 en maximum. Les rapports sont 1,94 ; 2,01 et 1,88.
+
+Où il perd : à l'arrêt net. Pour l'arrêt de 90 deg en 480 ms, la moyenne donne 0,0566 deg au modèle à vitesse et 0,0600 deg au modèle à accélération, qui perd. 
+Le maximum donne 1,4583 contre 1,1458 : il gagne. Les deux critères nomment deux vainqueurs différents. Le résultat dépend aussi de l'instant de l'arrêt dans l'image. 
+Sur 13 durées d'arrêt de 470 à 530 ms (lignes balayage du programme), le modèle à accélération perd 10 fois en moyenne et gagne 3 fois, à 490, 505 et 520 ms. 
+Son maximum n'est jamais plus mauvais que celui du modèle à vitesse. Un arrêt à 500 ms tombe sur une image : les deux modèles se trompent alors de 2,5 deg, soit la vitesse de 180 deg/s x 13,9 ms. 
+Aucun des deux ne peut prévoir un arrêt qui n'a pas encore eu lieu.
+
+Pourquoi là : avec une vitesse constante, l'erreur sur un geste doux vaut a x P au carré, où a est l'accélération et P la période de 13,9 ms. 
+Le modèle à accélération ajoute un terme a x P au carré / 2, ce qui retire la moitié de cette erreur et laisse a x P au carré / 2. D'où le rapport proche de 2. 
+À l'arrêt, l'accélération est une différence seconde de trois poses. Dans l'image qui suit l'arrêt, les deux dernières poses sont égales et la première ne l'est pas : le modèle lit une décélération forte et la prolonge. 
+Il prédit une tête qui recule d'une demi-avance, soit 1,3 deg pour 180 deg/s, alors qu'elle est arrêtée. Le modèle à vitesse, lui, rend la bonne pose à cette image. L'accélération se divise par le carré de la période, donc le modèle amplifie le bruit autant que le signal. 
+Le bon geste pour le tester est celui qui change d'accélération d'un coup, pas un geste doux.

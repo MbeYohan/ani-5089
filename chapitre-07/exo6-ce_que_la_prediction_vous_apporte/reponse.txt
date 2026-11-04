@@ -1,0 +1,17 @@
+Mes deux gestes : le lent fait 30 deg en 1000 ms, c'est un regard qui se pose sur un objet voisin. 
+Le demi-tour fait 180 deg en 300 ms, c'est quelqu'un qui se retourne vers un bruit. 
+Le rapide de l'énoncé fait 90 deg en 400 ms. Leurs vitesses de pointe, calculées à la main avec le profil du cours (amplitude / 2 x pi / durée), sont de 47, 353 et 942 deg/s. 
+Je compare chaque pose affichée à la vraie pose de l'instant d'affichage, à 72 Hz, sur la durée du geste.
+
+Où elle aide le moins : au demi-tour. Le rapport entre l'erreur sans prédiction et l'erreur avec prédiction vaut 23,4 pour le lent, 10,1 pour le rapide et 7,7 pour le demi-tour. 
+En degrés, la prédiction retire 8,94 - 1,15 = 7,79 deg au demi-tour, plus que partout ailleurs, mais c'est aussi là qu'il en reste le plus : 1,15 deg, contre 0,33 deg au rapide et 0,02 deg au lent. 
+Plus le geste est brusque, moins elle rattrape en proportion.
+
+Le geste lent est celui où l'instrument ment. Avec la formule d'angle de l'énoncé (Angle() du moteur, qui vaut 2 x acos(|w|) en float32), l'erreur avec prédiction du geste lent sort à 0,0006 deg et le rapport à 752,8. 
+Avec un angle calculé sur la partie vectorielle du quaternion, elle sort à 0,0180 deg et le rapport à 23,4. Sous environ 0,04 deg, w s'arrondit à 1 en float32 et l'écart se lit 0. J'ai gardé la seconde mesure dans gestes.txt. 
+Le programme affiche aussi la première, sur la ligne controle, pour qu'on puisse la comparer.
+
+Pourquoi là : le modèle suppose une vitesse constante, et la vitesse qu'il utilise est celle de l'intervalle précédent, donc celle d'il y a une demi-période. 
+Avec une accélération a et une période P, il se trompe de a x P au carré : a x P / 2 parce que la vitesse est en retard, et a x P / 2 parce que la vitesse change pendant l'image. 
+Sans prédiction, l'erreur est v x P. Le rapport vaut donc v / (a x P). Pour le profil du cours, sa valeur moyenne est proche de durée / (pi x P), soit 72 x durée / pi : 22,9 pour le lent, 9,2 pour le rapide, 6,9 pour le demi-tour. 
+Les mesures (23,4 ; 10,1 ; 7,7) sont à moins de 12 % de ces valeurs. La règle : le gain de la prédiction est proportionnel à la durée du geste divisée par la période de l'image. Un geste deux fois plus court gagne deux fois moins.

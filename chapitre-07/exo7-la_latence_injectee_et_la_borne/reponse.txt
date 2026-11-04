@@ -1,0 +1,14 @@
+Où elle cesse de rattraper : je fixe le critère à un rapport erreur sans prédiction / erreur avec prédiction égal à 2, c'est-à-dire que la prédiction retire au moins la moitié de l'erreur. 
+Sur les cinq latences, le rapport vaut 9,2 ; 6,1 ; 4,6 ; 3,7 et 2,3, pour 0, 10, 20, 40 et 80 ms. Il reste au-dessus de 2 sur tout le tableau. J'ai poussé le même calcul jusqu'à 400 ms (ligne balayage du programme, qui n'est pas dans latences.txt) : le rapport tombe à 2,00 à 100 ms, puis à 1,85 à 120 ms et à 1,18 à 400 ms. Le critère est franchi à la borne de 100 ms. 
+Au-delà, la prédiction rattrape toujours quelque chose, mais au plus 100 ms de retard, quelle que soit la latence.
+
+Les latences demandées ne sont pas les latences subies. SampleAt rend le dernier échantillon plus vieux que la cible, et les échantillons sont séparés d'une période (13,9 ms). 
+Une latence demandée de 10 ms donne un échantillon vieux de 13,9 ms, et l'erreur sans prédiction vaut 2,77 deg, le double des 1,38 deg de la latence 0. De même 20, 40 et 80 ms donnent 27,8 ; 41,7 et 83,3 ms. L'horizon de prédiction est cet âge plus une période : 97,2 ms pour la ligne 80 ms. La borne n'agit donc sur aucune des cinq lignes. 
+Elle commence à agir au-dessus de 83,3 ms demandées, où l'horizon dépasse 100 ms.
+
+L'horizon sans borne : 888,9 ms, et non 1 s moins une période. Le tableau ne garde que 64 poses, soit 63 périodes = 875,0 ms de passé. Pour une latence de 1 s, aucune pose n'est assez vieille, SampleAt rend la plus ancienne, celle de 1,194 s. 
+L'instant prédit est une période plus tard, donc l'horizon vaut 64 / 72 s = 888,9 ms. La tête tourne alors à environ 350 deg/s, et l'extrapolation ajoute 350 x 0,889 = 311 deg à une pose de 43 deg. Le programme écrit -4,5 deg : le résultat a fait presque un tour de trop, et le nombre final ne le montre pas. 
+La vraie pose vaut 90,0 deg, l'erreur 94,5 deg.
+
+Ce que verrait le casque : avec la borne à 100 ms, la pose prédite vaut 78,2 deg pour 90,0 deg vrais. L'erreur est de 11,8 deg, visible, mais le monde reste du bon côté du geste. Sans la borne, la salle serait dessinée à -4,5 deg alors que la tête est à 90 deg : un sursaut de 94 deg pendant une image, puis un retour. Le tour de trop apparaît ici sans le défaut du chemin court. 
+Il vient d'une prédiction trop longue.

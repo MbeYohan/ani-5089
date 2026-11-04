@@ -1,0 +1,4 @@
+rapide (90 deg en 400 ms) : vitesse 0.2198 deg (max 0.5247), acceleration 0.1134 deg (max 0.2696)
+lent (30 deg en 1000 ms) : vitesse 0.0151 deg (max 0.0285), acceleration 0.0075 deg (max 0.0143)
+demi-tour (180 deg en 300 ms) : vitesse 0.6853 deg (max 1.8493), acceleration 0.3641 deg (max 0.9662)
+arret (90 deg en 480 ms) : vitesse 0.0566 deg (max 1.4583), acceleration 0.0600 deg (max 1.1458)

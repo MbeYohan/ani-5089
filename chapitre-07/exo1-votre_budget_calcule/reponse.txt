@@ -1,0 +1,9 @@
+La fréquence de mon écran : 144 Hz, lue dans les paramètres d'affichage avancés de Windows. Sa période vaut 1000 / 144 = 6,944 ms. Les trois budgets de l'énoncé (13,889 ; 11,111 et 8,333 ms) sont tous plus longs que cette période : mon écran est plus rapide que les trois casques. 
+Ma salle ne suit pas ce rythme. Son intervalle moyen, 18,419 ms, vaut 2,65 périodes de l'écran, et pas un nombre entier. Avec la salle vidée (aucune copie soumise, exo 9), la même boucle tourne à 6,943 ms par image : l'attente de l'écran à 144 Hz s'applique donc, et les 18,4 ms viennent du travail de la salle.
+
+La cadence que je tiens : aucune des trois. La moyenne de 18,419 ms donne 1000 / 18,419 = 54,3 images par seconde, la médiane de 18,258 ms donne 54,8. Je dépasse le budget de 72 Hz de 18,419 - 13,889 = 4,530 ms, celui de 90 Hz de 7,308 ms et celui de 120 Hz de 10,086 ms. 
+Je ne tiens même pas 60 Hz (16,667 ms). Sans attente, la moyenne vaut 18,733 ms (53,4 images par seconde) : 0,314 ms de plus, soit 1,7 %. Retirer l'attente de l'écran ne change donc pas le rythme. Ce qui le fixe, c'est le travail de la salle par image, et je n'ai pas séparé la part du processeur de celle de la carte graphique. 
+Le journal logs/app.log dit api=Vulkan.
+
+Ce que dit le maximum : avec l'attente, le maximum est de 25,900 ms, contre une médiane de 18,258 ms : 7,642 ms de plus, soit 42 %. Une image sur les mille a donc duré 25,9 ms, ce qui fait 38,6 images par seconde. Dans un casque à 72 Hz, cette image dépasserait le budget de 25,900 - 13,889 = 12,011 ms, presque une image entière de retard. 
+Sans attente, le maximum est de 20,253 ms pour une médiane de 18,707 ms : 1,546 ms de plus, soit 8 %. Les deux moyennes sont presque égales, mais la pointe est plus basse sans attente. Je n'ai fait qu'une mesure de chaque : cet écart de pointe vient peut-être d'un seul accroc, et je ne peux pas affirmer qu'il vient de l'attente.

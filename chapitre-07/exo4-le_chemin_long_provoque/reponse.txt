@@ -1,0 +1,15 @@
+L'image fautive : l'image 616, à lacet = 270,054 deg. Sa vitesse vaut (0,000, -19,999, 0,000) deg/s et son delta.w vaut -0,999995. 
+Les images 615 et 617 donnent +19,999 et +20,002 deg/s, avec delta.w = +0,999995. C'est la seule image du tour complet dont le delta.w est négatif. 
+Avec le test remis, la ligne du même lacet (image 621, lacet = 270,311 deg) donne +20,000 deg/s, alors que son delta.w brut reste à -0,999995 : le test retourne le quaternion avant de calculer la vitesse.
+
+Le rapport : -19,999 / 19,999 = -1,000. La vitesse fautive a la même grandeur que celle de l'image d'avant et le signe opposé. 
+Le cours annonce, pour un quart de tour lu comme 270 deg au lieu de 90 deg, une vitesse trois fois trop grande et de signe opposé. 
+Je ne mesure pas le facteur trois. Dans NkQuat.h, Angle() calcule 2 x acos(|w|), donc il rend l'angle court même quand w est négatif, et seule la direction de l'axe se retourne.
+
+Pourquoi à ce lacet : 270 deg est le lacet où cos(lacet) change de signe pour la deuxième fois. Mon orientation vient de NkQuatf(rotation), qui choisit sa branche de calcul selon le signe du coefficient de la matrice égal à cos(lacet) (je n'ai pas de tangage). 
+Entre 90 et 270 deg, la conversion rend un quaternion avec y positif, et w négatif après 180 deg. Au-dessus de 270 deg, elle rend w positif, donc y négatif. À 270 deg, le quaternion passe de q à -q : la même rotation, dans l'autre hémisphère, et le quaternion d'écart entre les deux images a w négatif.
+À 90 deg, les deux branches donnent y et w positifs, il n'y a pas de saut : c'est pourquoi une seule image est fautive sur le tour.
+
+Ce qu'aurait vu le casque : pendant une image, la pose prédite partirait dans le sens opposé. L'erreur vaut 2 x v x P, avec P la période de l'écran. À 20 deg/s et P = 6,944 ms (144 Hz), elle fait 2 x 20 x 0,006944 = 0,28 deg, ce qui ne se voit pas. 
+À 353 deg/s, la vitesse de pointe du quart de tour de l'exo 6 (calculée à la main), elle ferait 2 x 353 x 0,006944 = 4,9 deg : le monde sursauterait de 4,9 deg dans le mauvais sens pendant une image, puis reviendrait.
+Le tour presque complet décrit par le cours ne se produit pas dans mon build, pour la raison donnée au paragraphe du rapport.

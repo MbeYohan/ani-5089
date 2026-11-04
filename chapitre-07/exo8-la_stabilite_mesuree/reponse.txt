@@ -1,0 +1,11 @@
+Le nombre qui compte : le nombre d'images hors budget. Il vaut 3192 sur 3192 images avec l'attente de l'écran, et 3154 sur 3154 sans attente : toutes les images dépassent le budget de 90 Hz (1000 / 90 = 11,111 ms). Dans un casque à 90 Hz, une image qui dépasse son budget n'est pas prête quand l'écran la demande : il remontre la précédente. 
+Ici, cela arrive à chaque image, et la salle ne tient pas 90 Hz.
+
+Pourquoi pas la moyenne : mes deux moyennes, 18,792 ms et 19,020 ms, ne diffèrent que de 0,228 ms, soit 1,2 %, et elles ne disent pas que les 6346 images sont toutes hors budget. 
+Elles cachent aussi la pointe : le maximum est de 29,972 ms avec l'attente, 11,180 ms au-dessus de la moyenne, soit 10,9 écarts types (1,024 ms). Sans attente, le maximum est de 28,334 ms, soit 7,6 écarts types (1,233 ms). Dans les deux cas, la pointe est très loin du reste des images : quelques images isolées ont duré environ une fois et demie la moyenne, et la moyenne ne le montre pas. 
+L'écart type, lui, est faible (5,4 % de la moyenne avec l'attente, 6,5 % sans) : mon rythme est régulier, mais il est trop lent, et seule la comparaison au budget le dit.
+
+Ce que l'écran change : presque rien. Sans attente, il y a 38 images de moins (3154 contre 3192, soit 1,2 %), la moyenne monte de 0,228 ms, l'écart type monte de 0,209 ms et le maximum baisse de 1,638 ms. 
+Ces écarts sont de l'ordre de 1 % : ils peuvent venir de la différence entre deux minutes, et je n'ai fait qu'une mesure de chaque. Si l'attente de l'écran fixait le rythme, la mesure sans attente irait bien plus vite. Elle ne va pas plus vite, donc ce n'est pas l'écran qui fixe mon rythme : c'est le travail de la salle, 18,8 ms par image, soit 2,7 périodes de mon écran de 144 Hz (6,944 ms). 
+Avec la salle vidée, la moyenne tombe à 6,943 ms (exo 9) : l'écran fixe le rythme quand la salle est légère, et c'est la salle qui le fixe quand elle est lourde.
+L'API prise par la salle est Vulkan, d'après logs/app.log.
