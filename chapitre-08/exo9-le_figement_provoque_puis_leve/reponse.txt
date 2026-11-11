@@ -1,0 +1,17 @@
+A quelle image ca s'est fige :
+Nulle part. Sous DirectX 11, le programme a dessiné 10120 images, de 1 à 10120 sans trou (avant.txt), puis je l'ai arrêté à la main. 
+Sous OpenGL, il n'y a pas eu de figement non plus, mais je n'ai pas relevé le nombre d'images. 
+Vulkan n'a pas démarré sur ma machine : la ligne backend a affiché DirectX 12, et DirectX 12 a refusé de compiler le shader PBR du moteur, donc le programme s'est fermé avec le code 5 avant de dessiner. 
+Je n'ai donc aucun numéro d'image de figement à donner. 
+La situation de l'énoncé était pourtant bien créée : la cible fait 640 x 360 dans une fenêtre de 1280 x 720, et sans la taille forcée le renderer suit la taille de la fenêtre (c'est ce que dit le commentaire de SetRenderSizeOverride dans le moteur). 
+DirectX 11 et OpenGL laissent passer cette différence. Avec la taille forcée, apres.txt montre 12 images, comme avant : sur ces deux backends, la correction ne change rien de visible dans mes mesures.
+
+Ce que la pile montrait :
+Cette pile vient d'un processus qui tournait, pas d'un processus figé, et la première ligne de pile.txt le dit. Elle est celle du fil principal. Lue du bas vers le haut : main, WinMain, nkmain à la ligne 179 de mon fichier (l'appel rMain->Present()), NkRendererImpl::Present, NkDirectX11Device::SubmitAndPresent, Submit, puis NkDirectX11CommandBuffer::Execute. 
+Au-dessus, le fil est dans d3d11.dll, dans le pilote graphique Intel (igd10um64xe.dll) et tout en haut dans win32u, sur NtGdiDdDDIWaitForSynchronizationObjectFromGpu. Je lis ce nom comme une attente d'un objet de synchronisation du GPU. 
+Je ne lis pas les noms des images intermédiaires dans d3d11.dll et dxgi.dll : gdb n'a pas les symboles de ces DLL système, il affiche le nom de l'export le plus proche, qui n'est pas forcément la fonction réelle. 
+Ce que la pile permet de dire : à cet instant, le fil principal attendait le GPU à l'intérieur de Present. Ici l'attente finissait, puisque les images continuaient de monter. Un figement serait la même attente qui ne finit pas.
+
+Pourquoi rien n'est journalise :
+Parce qu'une attente n'est pas une erreur. Le fil appelle une fonction qui ne rend jamais la main, donc aucun code d'erreur n'est renvoyé et aucune ligne du genre si échec alors journaliser n'est exécutée. 
+Le journal du moteur écrit quand quelque chose échoue : c'est ce qu'il a fait sous DirectX 12, avec une ligne [ERR] pour le shader. Un fil bloqué n'échoue pas, il attend. La fenêtre reste ouverte et le processus vivant. Le seul moyen de savoir ce qui se passe est de demander au fil où il est, avec un débogueur. Je donne cette explication d'après le code et la pile, je ne l'ai pas observée sur un vrai figement.

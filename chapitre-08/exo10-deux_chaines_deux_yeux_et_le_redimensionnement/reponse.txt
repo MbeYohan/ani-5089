@@ -1,0 +1,14 @@
+Ce qui se passe sans recreer :
+Quand la fenêtre change de taille, les cibles des deux yeux sont redimensionnées, et une cible redimensionnée peut être réallouée. La chaîne ne le sait pas. 
+Elle garde la largeur et la hauteur de sa création et les poignées posées avant le redimensionnement. Rien ne casse tout de suite : le programme continue de tourner, les index prêtés continuent de tourner eux aussi, et la trace garde le même rythme. Seulement, chaque index désigne une poignée périmée, donc une image qui n'est plus celle de la cible actuelle. 
+L'erreur ne se lit pas dans la trace, elle se lit dans l'image. Je n'ai pas lancé de version sans recréation, donc je ne décris pas ce que l'écran aurait montré.
+
+Pourquoi reenregistrer ne suffit pas seul :
+SetImageNative range un nombre dans une case du tableau de la chaîne, sans rien vérifier. Il ne change ni la taille que la chaîne croit avoir, ni sa position dans l'anneau, ni l'état d'emprunt. 
+Réenregistrer dans une vieille chaîne donne les bonnes poignées avec la mauvaise taille déclarée. L'inverse est vrai aussi : Init remet toutes les poignées à zéro, donc recréer sans réenregistrer donne une chaîne neuve dont chaque image vaut 0. 
+Il faut les deux, et dans cet ordre : détruire, redimensionner les cibles, recréer, puis réenregistrer. On lit les poignées après le redimensionnement des cibles, parce que c'est ce redimensionnement qui peut les changer. resize.txt suit cet ordre.
+
+Ce que les deux yeux doivent partager :
+Ils doivent partager la taille (chaque œil a la même largeur et la même hauteur, la moitié de la fenêtre), la cadence (chaque œil rend une image par image de composition, et l'écart entre leurs images rendues ne dépasse pas 1) et le moment du redimensionnement : les deux chaînes sont détruites et recréées ensemble, sinon un œil garde l'ancienne taille. 
+Ils ne doivent pas partager la chaîne, l'anneau, les poignées ni l'emprunt. Dans mon programme les deux chaînes ont des tailles d'anneau différentes, 3 images à gauche et 2 à droite, pour que la séparation se voie : les index gauche font 0, 1, 2 et les index droit font 0, 1. 
+Avec une seule chaîne pour les deux yeux, les deux yeux se partageraient le même anneau et les mêmes images : le second œil écraserait le dessin du premier et la fenêtre n'afficherait qu'une image.

@@ -1,0 +1,29 @@
+Pile du fil principal prise sur un processus qui tourne normalement (DirectX 11). Aucun figement n'a pu etre provoque.
+#0  0x00007ffcafd160c4 in win32u!NtGdiDdDDIWaitForSynchronizationObjectFromGpu () from C:\WINDOWS\System32\win32u.dll
+#1  0x00007ffcab4d8411 in d3d11!D3D11CoreCreateLayeredDevice () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#2  0x00007ffcab4d8251 in d3d11!D3D11CoreCreateLayeredDevice () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#3  0x00007ffcab4fef7a in d3d11!D3D11CoreCreateLayeredDevice () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#4  0x00007ffcab4fdb5b in d3d11!D3D11CoreCreateLayeredDevice () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#5  0x00007ffca390bd85 in igd10um64xe!OpenAdapter_D3D11On12 ()
+   from C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_5abe29f3c0d0da38\igd10um64xe.dll
+#6  0x00007ffca390beb6 in igd10um64xe!OpenAdapter_D3D11On12 ()
+   from C:\WINDOWS\System32\DriverStore\FileRepository\iigd_dch.inf_amd64_5abe29f3c0d0da38\igd10um64xe.dll
+#7  0x00007ffcab4fda7e in d3d11!D3D11CoreCreateLayeredDevice () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#8  0x00007ffcac993d8c in dxgi!DXGIDeclareAdapterRemovalSupport () from C:\WINDOWS\SYSTEM32\dxgi.dll
+#9  0x00007ffcab60a2b0 in ?? () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#10 0x00007ffcab60a230 in ?? () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#11 0x00007ffcab617752 in ?? () from C:\WINDOWS\SYSTEM32\d3d11.dll
+#12 0x00007ff70625e244 in nkentseu::NkDirectX11CommandBuffer::Execute (this=0x1c1fd1a04b8, dev=0x1c1f10414c8)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Kernel\Runtime\NKRHI\src\NKRHI\DirectX11/NkDirectX11CommandBuffer.cpp:59
+#13 0x00007ff70605c3da in nkentseu::NkDirectX11Device::Submit (this=0x1c1f10414c8, cbs=0x33422fe038, n=1, fence=...)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Kernel\Runtime\NKRHI\src\NKRHI\DirectX11/NkDirectX11Device.cpp:1686
+#14 0x00007ff70605c466 in nkentseu::NkDirectX11Device::SubmitAndPresent (this=0x1c1f10414c8, cb=0x1c1fd1a04b8)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Kernel\Runtime\NKRHI\src\NKRHI\DirectX11/NkDirectX11Device.cpp:1696
+#15 0x00007ff705f9335e in nkentseu::renderer::NkRendererImpl::Present (this=0x1c1fd2c5c78)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Kernel\Runtime\NKRenderer\src\NKRenderer\Core/NkRendererImpl.cpp:1974
+#16 0x00007ff705f02c43 in nkmain (state=...)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Tutoriels3D\AniExo9/main.cpp:179
+#17 0x00007ff705f0185d in WinMain (hInstance=0x7ff705f00000, hPrevInstance=0x0, lpCmdLine=0x1c1f0fabb97 "",
+    nCmdShow=10)
+    at D:\TRAVAUX\ENSPY\NIVEAU V\Rodolf\Nkentseu\Kernel\Runtime\NKWindow\src/NKWindow/EntryPoints/NkWindowsDesktop.h:84
+#18 0x00007ff705fd5205 in main ()

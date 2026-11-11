@@ -1,0 +1,34 @@
+fenetre redimensionnee : 958x981, yeux 479x981
+destruction de la chaine gauche : 3 images
+destruction de la chaine droit : 2 images
+redimensionnement de la cible gauche, image 0 : 479x981
+redimensionnement de la cible gauche, image 1 : 479x981
+redimensionnement de la cible gauche, image 2 : 479x981
+taille de rendu forcee, oeil gauche : 479x981
+redimensionnement de la cible droit, image 0 : 479x981
+redimensionnement de la cible droit, image 1 : 479x981
+taille de rendu forcee, oeil droit : 479x981
+recreation de la chaine gauche : 3 images, 479x981
+reenregistrement chaine gauche, image 0 : poignee 41813
+reenregistrement chaine gauche, image 1 : poignee 41817
+reenregistrement chaine gauche, image 2 : poignee 41821
+recreation de la chaine droit : 2 images, 479x981
+reenregistrement chaine droit, image 0 : poignee 41861
+reenregistrement chaine droit, image 1 : poignee 41865
+fenetre redimensionnee : 958x471, yeux 479x471
+destruction de la chaine gauche : 3 images
+destruction de la chaine droit : 2 images
+redimensionnement de la cible gauche, image 0 : 479x471
+redimensionnement de la cible gauche, image 1 : 479x471
+redimensionnement de la cible gauche, image 2 : 479x471
+taille de rendu forcee, oeil gauche : 479x471
+redimensionnement de la cible droit, image 0 : 479x471
+redimensionnement de la cible droit, image 1 : 479x471
+taille de rendu forcee, oeil droit : 479x471
+recreation de la chaine gauche : 3 images, 479x471
+reenregistrement chaine gauche, image 0 : poignee 57822
+reenregistrement chaine gauche, image 1 : poignee 57826
+reenregistrement chaine gauche, image 2 : poignee 57830
+recreation de la chaine droit : 2 images, 479x471
+reenregistrement chaine droit, image 0 : poignee 57870
+reenregistrement chaine droit, image 1 : poignee 57874

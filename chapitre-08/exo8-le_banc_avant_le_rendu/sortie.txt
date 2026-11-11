@@ -1,0 +1,11 @@
+creation de 3 images : accepte
+tour 1 : emprunte 0, prochaine 1, derniere rendue 0
+tour 2 : emprunte 1, prochaine 2, derniere rendue 1
+tour 3 : emprunte 2, prochaine 0, derniere rendue 2
+tour 4 : emprunte 0, prochaine 1, derniere rendue 0
+tour 5 : emprunte 1, prochaine 2, derniere rendue 1
+tour 6 : emprunte 2, prochaine 0, derniere rendue 2
+double emprunt : refuse
+rendre sans avoir emprunte : refuse
+creation de 5 images : refuse
+une seule image : prochaine 0, derniere rendue 0

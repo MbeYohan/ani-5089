@@ -1,0 +1,10 @@
+Ce que le banc refuse :
+Trois choses, et la sortie les montre : emprunter deux fois de suite (refuse), rendre sans avoir emprunté (refuse), créer une chaîne de 5 images alors que le maximum est 4 (refuse). 
+Le mécanisme tient en un booléen, mAcquired, et une comparaison sur le nombre d'images. AcquireImage rend faux si le drapeau est levé, ReleaseImage rend faux s'il est baissé, Creer rend faux si le nombre dépasse MaxImages. 
+Chaque refus laisse l'état intact, et rend faux au lieu de planter : c'est le programme qui décide quoi faire. 
+Le tableau de poignées a 4 cases fixes, donc la chaîne n'alloue jamais. Le bouclage se lit dans les six tours : les index prêtés sont 0, 1, 2, 0, 1, 2. La dernière ligne montre un cas où le programme ne dit rien de faux mais ne prouve rien non plus : avec une seule image, l'index prochain et l'index rendu valent tous deux 0. 
+Soumettre l'un ou l'autre donne le même résultat, donc cette faute ne se voit pas avec une image. Avec trois images, après le tour 1, ils valent 1 et 0.
+
+Pourquoi un simulateur permissif serait pire :
+Un simulateur qui accepte le double emprunt laisse écrire du code qui ne marche que chez lui. Avec le simulateur, le code passe. Avec un vrai runtime, le même code est sanctionné, et ce jour-là il n'y a plus de débogueur confortable sur le bureau : il y a un casque sur la tête et une image sur deux qui est noire. 
+Le simulateur strict applique la même discipline que le matériel, donc il attrape les mêmes fautes au moment où elles coûtent le moins cher. Ce que coûte cette garantie : un booléen et une comparaison.
