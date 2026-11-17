@@ -1,0 +1,13 @@
+Ce que le programme a cru :
+À l'image 8, courant passe de 1 à 0 et change vaut 1. C'est la signature d'un relâchement, et le programme qui ne teste pas actif la lit comme telle : il lâche le cube. 
+Le cube tombe de l'image 8 à l'image 17, où il touche le sol. À l'image 14, avant.png montre le cube à 0,50 m de haut et la paume à 1,22 m. À l'image 18 la manette revient, courant et change valent 1, et le programme y lit une nouvelle saisie : il attache le cube qui gît au sol, à 1,17 m de la main. 
+Les captures sont l'image 14 du même programme, dessinée par actif.cpp en vue de côté, l'avant à droite. Le carré du haut est vert quand le cube est tenu et rouge sinon. Celui du dessous est noir quand la manette est éteinte.
+
+Ce qui se passait vraiment :
+Le doigt n'a pas bougé de l'image 3 à l'image 20. Seule la manette s'est éteinte, de l'image 8 à l'image 17, ce que dit actif à 0 dans journal.txt. Une action inactive rend courant faux, et change se calcule sur courant. 
+L'extinction produit donc courant 0 et change 1, les mêmes valeurs qu'un vrai relâchement. Dans ces deux colonnes, rien ne distingue les deux cas. Seule la colonne actif les sépare : elle vaut 0 à l'image 8 pour l'extinction, et elle vaudrait 1 pour un relâchement du doigt.
+
+Ce que je teste maintenant :
+Je saisis quand actif, courant et change sont vrais, et je lâche quand actif et change sont vrais et courant faux. Quand actif est faux, je ne touche à rien. Dans apres.png, le cube est resté dans la main pendant les 10 images d'extinction, à 1,19 m comme à l'image 7. À l'image 18, la manette revient avec un front apparent. 
+Je recalcule l'attache, ce qui ne change rien puisque le cube n'a pas bougé par rapport à la paume. J'ai choisi de garder l'objet tenu pendant l'extinction plutôt que de le lâcher. Le choix vaut ici parce que l'extinction dure 10 images et que la main ne bouge pas : la dernière pose connue est encore la bonne. 
+Il ne vaut pas pour une extinction longue. L'objet resterait suspendu à sa dernière pose pendant que la vraie main part ailleurs, et il faudrait fixer un délai au bout duquel on le repose. Je ne l'ai pas écrit, faute de besoin ici.

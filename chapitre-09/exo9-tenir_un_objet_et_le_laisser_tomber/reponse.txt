@@ -1,0 +1,13 @@
+Ce qui se passe sur le front :
+Le doigt reste sur la gâchette des images 3 à 11, soit 9 images. Sur le front, le test current et changed n'est vrai qu'à l'image 3. Le cube est attaché cette image-là, puis plus rien ne le place : à l'image 4, changed est retombé à 0 et l'objet n'est plus tenu. 
+Il tombe pendant que la main continue de monter. À l'image 8, front.png montre le cube à 0,63 m de haut et la paume à 1,27 m, soit 0,64 m d'écart, alors que la gâchette est toujours pressée. Le joueur serre le doigt et la main ne tient rien. 
+Les captures sont l'image 8 du même programme, dessinée par saisie.cpp en vue de côté, l'avant à droite. Le point rouge est la paume, le point bleu la visée, les points gris sont les positions du cube aux images précédentes. Le carré en haut à gauche est vert quand le cube est tenu et rouge sinon.
+
+Ce qui se passe sur le niveau :
+Le test current est vrai de l'image 3 à l'image 11, donc le cube est replacé à chaque image. La pose du cube dans le repère de la paume est calculée une seule fois, au front, par l'inverse de la pose de la paume composé avec la pose du cube. Ensuite le cube prend la pose de la paume composée avec cette attache. 
+À l'image 8, niveau.png montre le cube dans la main, à 3,6 cm du centre de la paume, la distance de la prise, et incliné comme la main. Il est attaché à la paume, pas à la visée : le point bleu est à 6 cm devant la paume, et un cube attaché à ce point flotterait à cette distance de la main. 
+Le carré reste vert tant que le doigt est posé, et le cube ne tombe qu'à l'image 12, au relâchement.
+
+Ce que je teste pour lacher :
+Je teste que current est faux et que changed est vrai, soit !current && changed. Ce test n'est vrai qu'à l'image 12, la première où le doigt se lève, et le cube commence alors à tomber. 
+Il ne regarde pas active. Une manette qui s'éteint donne aussi current faux et changed vrai, et ce test lâcherait l'objet à ce moment-là. Il faut donc lui ajouter active, ce que fait l'exercice 10.

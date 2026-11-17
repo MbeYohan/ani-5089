@@ -1,0 +1,14 @@
+Ce que dit la colonne change :
+Pour saisir, change vaut 1 à l'image 2 et à l'image 5, et 0 partout ailleurs. 
+Il se calcule sur courant, pas sur la touche : il dit qu'il s'est passé quelque chose, pas quoi. 
+Pour savoir quoi, il faut courant. À l'image 2, change vaut 1 et courant vaut 1 : c'est le front de saisie, l'instant où l'on tire. 
+À l'image 5, change vaut 1 et courant vaut 0 : c'est le relâchement. 
+Entre les deux, aux images 3 et 4, change retombe à 0 alors que courant reste à 1 : c'est le niveau, l'état dans lequel on tient un objet. 
+Une balle se tire sur courant et change, un objet se tient sur courant seul. 
+Pour viser, qui est tenue des images 4 à 5, la même lecture donne un front à l'image 4 et un relâchement à l'image 6.
+
+Ce que dit la colonne actif :
+Saisir et viser ont actif à 1 sur les six images : une source est liée. 
+L'action orpheline a actif à 0 sur les six images, et sa ligne ressemble à celle d'une touche qu'on ne presse jamais : courant 0, change 0. 
+Dans ces deux colonnes, rien ne distingue une action sans organe d'un bouton relâché. Seule la colonne actif le dit. 
+Un programme qui ne lit que courant attendra pour toujours une action qui ne viendra pas, sans aucun message d'erreur.
