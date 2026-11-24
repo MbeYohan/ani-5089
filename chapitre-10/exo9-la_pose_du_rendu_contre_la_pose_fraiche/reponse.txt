@@ -1,0 +1,14 @@
+Ce que la couche dit vraiment :
+La pose de la couche ne dit pas où est la tête. Elle dit d'où cette image a été vue : la pose et le champ employés au rendu. 
+Dans le banc, le rendu part avec un lacet de 5,0 degrés, et la tête est à 6,4 degrés quand l'image arrive à l'écran. 
+La couche doit porter 5,0, parce que c'est de là que l'image a été dessinée.
+
+Ce que le compositeur en fait :
+Au moment d'afficher, le compositeur connaît la vraie pose de la tête. Il la compare à la pose écrite dans la couche et décale l'image de l'écart : correction = réel - soumis. 
+Avec 5,0 soumis, la correction vaut 1,400e+00 degré, l'image paraît vue depuis 6,4, et l'écart restant à l'écran vaut 0,000e+00. Sur la première capture, rendu.png, chaque objet remplit son contour noir.
+
+Pourquoi la pose fraiche ne corrige rien :
+Avec la pose fraîche, 6,4 soumis, le compositeur calcule 6,4 - 6,4 et trouve une correction de 0,000e+00. Il croit que l'image a été vue de là où est la tête, alors qu'elle a été dessinée à 5,0. 
+L'écart de -1,400e+00 degré reste entier, c'est le même qu'avec aucune reprojection. Sur fraiche.png, les objets remplis sont décalés de 28 pixels par rapport à leur contour. La pose fraîche est plus vraie que la pose du rendu, et elle est fausse ici. 
+Redemander les vues avant de soumettre est même une faute double : on remplace celles du rendu, et on les prend pour l'instant courant au lieu de l'instant prédit. 
+Un simulateur qui ne reprojette pas montrerait deux captures identiques : la faute y est invisible. À 72 trames par seconde, un décalage de 1,4 degré par trame ne plante rien et personne ne le supporte dix minutes.

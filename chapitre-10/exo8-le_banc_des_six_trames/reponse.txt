@@ -1,0 +1,9 @@
+Pourquoi la trame 5 reprend sur l'image 2 :
+L'index de l'anneau n'avance que quand on emprunte une image. Les trames 1 et 2 empruntent les images 0 et 1, l'index vaut alors 2. Les trames 3 et 4 ne dessinent pas : rien n'est emprunté, rien n'est rendu, l'index reste à 2. 
+La trame 5 emprunte donc l'image 2, puis l'index revient à 0 et la trame 6 prend l'image 0. 
+Si j'avançais l'index à chaque trame, il vaudrait 4 à la trame 5, soit l'image 1 dans un anneau de 3 images : le cycle serait décalé pour rien, sur des images que personne n'a rendues.
+
+Pourquoi on finit une trame sans rien dessiner :
+Le système compte les débuts de trame et attend une fin pour chacun. 
+Il règle son rythme là-dessus. Aux trames 3 et 4, je commence quand même la trame, je ne dessine rien, et j'appelle la fin avec zéro couche : la colonne des couches vaut 0, mais la ligne FINS vaut 6, une fin par trame. 
+Si la fin était dans le test de rendu, la trame 3 resterait ouverte, l'attente de la trame 4 ne reviendrait pas, et la boucle ne sortirait jamais de la pause.

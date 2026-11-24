@@ -1,0 +1,14 @@
+Ou la boucle s'est arretee :
+À la trame 6, le casque est posé, shouldRender vaut faux, et la fin de trame, placée dans le test de rendu, n'est pas appelée : la ligne du journal montre debut 1 et fin 0. 
+À la trame 7, l'attente trouve une trame encore ouverte et ne rend pas la main. Sur un vrai casque le programme resterait dans l'attente. 
+Dans mon banc, l'attente répond faux pour que le journal continue, d'où les lignes debut 0 et fin 0 des trames 7 à 20. Le casque est remis à la trame 11, et rien ne repart : la boucle n'atteint plus la question du rendu. 
+Sur avant.png, l'image de l'écran ne change plus après la trame 5.
+
+Pourquoi aucun message n'est apparu :
+Aucun appel n'a échoué. Ne pas appeler la fin de trame n'est pas une erreur au moment où on la saute, c'est un appel qui manque, et un appel qui manque ne se signale pas. 
+Le symptôme arrive une trame plus tard, à l'attente, loin de la cause. De plus, la faute ne se produit que casque posé : tant qu'on teste avec le casque sur la tête, shouldRender vaut toujours vrai et la fin est toujours appelée. 
+Cela marche pendant des heures de test, puis se fige le jour où quelqu'un pose le casque.
+
+Ce que je fais maintenant a chaque trame :
+La boucle suit l'ordre pompe d'événements, attente, début, synchronisation des actions, rendu si shouldRender est vrai, fin. La fin de trame est hors du test de rendu : tout début de trame est suivi d'une fin, que j'aie dessiné ou non. 
+Pendant la pause, la trame est commencée et terminée sans couche. Dans le journal corrigé, les trames 6 à 10 donnent rend 0, debut 1, fin 1, et dès la trame 11 les images repartent, comme on le voit sur apres.png.
